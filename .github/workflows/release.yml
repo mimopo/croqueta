@@ -7,6 +7,7 @@ permissions:
   pull-requests: write
   issues: write
   id-token: write
+  pages: write
 
 jobs:
   update:
@@ -50,7 +51,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Build
-        run: npm run build
+        run: | 
+          npm run build -w packages/cli/ 
+          npm run build -w packages/framework/
       - name: NPM publish
         run: npm run release
       - name: Commit version bump
@@ -73,13 +76,10 @@ jobs:
         run: npm run gh-release
         env:
           GH_TOKEN: ${{ github.token }}
-      # Deploy docs to GitHub Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Upload Docs Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist/docs'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+
+  docs:
+    needs: release
+    uses: ./.github/workflows/docs.yml
+    permissions:
+      pages: write
+      id-token: write
