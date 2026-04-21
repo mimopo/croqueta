@@ -1,0 +1,34 @@
+[
+  {
+    "label": "Getting Started",
+    "path": "docs/"
+  },
+  {
+    "label": "Components",
+    "path": "docs/packages/framework/src/components/"
+  },
+  {
+    "label": "Reactivity",
+    "path": "docs/packages/framework/src/reactivity/"
+  },
+  {
+    "label": "Dependency Injection",
+    "path": "docs/packages/framework/src/di/"
+  },
+  {
+    "label": "Router",
+    "path": "docs/packages/framework/src/router/"
+  },
+  {
+    "label": "State Management",
+    "path": "docs/packages/framework/src/state/"
+  },
+  {
+    "label": "Portals",
+    "path": "docs/packages/framework/src/portal/"
+  },
+  {
+    "label": "CLI",
+    "path": "docs/packages/cli/"
+  }
+]

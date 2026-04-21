@@ -1,0 +1,11 @@
+name: Setup Project
+description: Setup Node.js and install dependencies
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v6
+      with:
+        node-version-file: 'package.json'
+        cache: 'npm'
+    - run: npm ci
+      shell: bash

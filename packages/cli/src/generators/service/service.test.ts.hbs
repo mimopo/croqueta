@@ -1,0 +1,19 @@
+import { afterEach, beforeEach, describe, expect, test } from 'vitest';
+
+import { {{className name}}Service } from './{{fileName name}}.service';
+
+describe('{{className name}}Service', () => {
+  let service: {{className name}}Service;
+    
+  beforeEach(() => {
+    service = new {{className name}}Service();
+  });
+
+  afterEach(() => {
+    service.destroy();
+  });
+
+  test('should be defined', () => {
+    expect(service).toBeDefined();
+  });
+});

@@ -1,0 +1,12 @@
+{
+  "name": "@mimopo/croqueta-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build"
+  },
+  "devDependencies": {
+    "@mimopo/vite-plugins": "*"
+  }
+}

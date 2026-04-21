@@ -1,0 +1,21 @@
+import { clear, renderComponent } from '@mimopo/croqueta/testing';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+
+import { {{className name}}Component } from './{{fileName name}}.component';
+
+describe('{{className name}}Component', () => {
+  let component: {{className name}}Component;
+    
+  beforeEach(() => {
+    component = renderComponent({{className name}}Component, {});
+  });
+
+  afterEach(() => {
+    clear();
+    vi.restoreAllMocks();
+  });
+
+  test('should be defined', () => {
+    expect(component).toBeDefined();
+  });
+});

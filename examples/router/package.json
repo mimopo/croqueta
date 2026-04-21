@@ -1,0 +1,10 @@
+{
+  "name": "@mimopo/croqueta-example-router",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run --passWithNoTests"
+  }
+}

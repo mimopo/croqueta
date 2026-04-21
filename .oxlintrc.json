@@ -1,0 +1,50 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "sort-imports": [
+      "warn",
+      {
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "unicorn/prefer-node-protocol": "error",
+    "oxc/no-barrel-file": "error",
+    "no-duplicate-imports": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["**/../*/*/**", "../[^.]*/**"],
+            "message": "Deep imports are forbidden. Please import from the directory's index file to respect the Public API."
+          },
+          {
+            "group": ["vitest"],
+            "importNames": ["it"],
+            "message": "Use vitest 'test' instead of 'it'"
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "plugins": ["vitest"],
+      "files": ["**/*.test.ts"],
+      "rules": {
+        "no-unsafe-type-assertion": "off",
+        "typescript/no-extraneous-class": "off",
+        "typescript/unbound-method": "off",
+        "vitest/expect-expect": "error"
+      }
+    }
+  ],
+  "ignorePatterns": ["dist/**", "global.d.ts"]
+}

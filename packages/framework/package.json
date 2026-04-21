@@ -1,0 +1,22 @@
+{
+  "name": "@mimopo/croqueta",
+  "type": "module",
+  "sideEffects": false,
+  "module": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./dev": "./src/dev.ts",
+    "./testing": "./src/testing.ts"
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "test": "vitest run",
+    "release": "npm publish --provenance -d ../../dist/framework/"
+  },
+  "dependencies": {
+    "signal-polyfill": "*"
+  },
+  "devDependencies": {
+    "@mimopo/vite-plugins": "*"
+  }
+}

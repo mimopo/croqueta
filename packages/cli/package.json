@@ -1,0 +1,25 @@
+{
+  "name": "@mimopo/croqueta-cli",
+  "version": "0.0.0-dev",
+  "description": "Croqueta Framework CLI tool",
+  "bin": {
+    "cocreta": "./src/index.ts",
+    "croqueta": "./src/index.ts"
+  },
+  "type": "module",
+  "module": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "release": "npm publish --provenance -d ../../dist/cli/"
+  },
+  "dependencies": {
+    "minimist": "*",
+    "plop": "*"
+  },
+  "devDependencies": {
+    "@mimopo/vite-plugins": "*"
+  }
+}

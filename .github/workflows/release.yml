@@ -1,0 +1,85 @@
+name: Release
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  update:
+    name: Update PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      - name: Update PR
+        run: |
+          gh pr update-branch --rebase
+          git pull --rebase
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  validate:
+    needs: update
+    uses: ./.github/workflows/validate.yml
+
+  release:
+    needs: validate
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Version bump
+        run: |
+          BASE_REF=$(gh pr view --json baseRefName --jq '.baseRefName')
+          BASE_VERSION=$(git show origin/$BASE_REF:package.json | jq -r .version)
+          npm version $BASE_VERSION --no-commit-hooks --no-git-tag-version --allow-same-version
+          gh pr view --json title --jq '.title' | npm run bump
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Build
+        run: npm run build
+      # - name: NPM publish
+      #   run: npm run release
+      - name: Commit version bump
+        run: |
+          git add package.json package-lock.json
+          git status
+          if [ -n "$(git status --porcelain -uno)" ]; then
+            git commit -m "chore: version bump [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+      - name: Merge PR
+        run: |
+          PR_NUMBER=$(gh pr view --json number --jq '.number')
+          gh pr merge $PR_NUMBER --squash --delete-branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Release
+        run: npm run gh-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # Deploy docs to GitHub Pages
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v4
+      # - name: Upload Docs Artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: 'dist/docs'
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v4

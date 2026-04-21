@@ -1,0 +1,17 @@
+import { Component, css, html } from '@mimopo/croqueta';
+
+/**
+ * {{className name}}Component
+ */
+export class {{className name}}Component extends Component {
+  public static tag = '{{kebabCase prefix}}-{{fileName name}}';
+  public static styles = css`
+    :host {
+      display: block;
+    }
+  `;
+
+  protected render() {
+    return html`<div>{{className name}}Component Works!</div>`;
+  }
+}

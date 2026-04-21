@@ -1,0 +1,371 @@
+// PICO
+
+@use '@picocss/pico/scss/pico' with (
+  $enable-semantic-container: false,
+  $enable-classes: true,
+  $theme-color: 'amber',
+  $enable-responsive-spacings: true,
+  $modules: (
+    // Theme
+    'themes/default': true,
+
+    // Layout
+    'layout/document': true,
+    'layout/landmarks': false,
+    'layout/container': true,
+    'layout/section': true,
+    'layout/grid': false,
+    'layout/overflow-auto': false,
+
+    // Content
+    'content/link': true,
+    'content/typography': true,
+    'content/embedded': true,
+    'content/button': true,
+    'content/table': true,
+    'content/code': true,
+    'content/figure': true,
+    'content/misc': true,
+
+    // Forms
+    'forms/basics': false,
+    'forms/checkbox-radio-switch': false,
+    'forms/input-color': false,
+    'forms/input-date': false,
+    'forms/input-file': false,
+    'forms/input-range': false,
+    'forms/input-search': false,
+
+    // Components
+    'components/accordion': false,
+    'components/card': false,
+    'components/dropdown': false,
+    'components/group': false,
+    'components/loading': false,
+    'components/modal': false,
+    'components/nav': true,
+    'components/progress': false,
+    'components/tooltip': false,
+
+    // Utilities
+    'utilities/accessibility': false,
+    'utilities/reduce-motion': false,
+  )
+);
+
+// GLOBAL
+
+body {
+  margin: 0;
+}
+
+[data-theme='light'],
+:root:not([data-theme='dark']),
+:host(:not([data-theme='dark'])) {
+  --pico-background-color: #f1f1f1;
+  --pico-code-background-color: #e0e0e0;
+  --pico-code-color: #555;
+}
+
+// HEADER
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--pico-background-color);
+  a {
+    font-size: 1.3rem;
+  }
+}
+
+.logo {
+  text-wrap: nowrap;
+  text-decoration: none;
+  img {
+    display: inline-block;
+    width: 2rem;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  &:hover {
+    animation: glow 1s ease-in-out infinite alternate;
+    img {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+}
+
+.version {
+  font-size: 0.8rem;
+  font-family: var(--pico-font-family);
+  color: var(--pico-muted-color);
+  margin-left: 0.5rem;
+}
+
+// CONTENT
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--pico-spacing);
+  align-items: start;
+  aside {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.35s ease;
+    text-align: center;
+  }
+  aside.active {
+    height: calc(100vh - 5.3rem);
+  }
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: 9rem 1fr;
+    aside {
+      position: sticky;
+      top: 5.3rem;
+      z-index: 1;
+      height: inherit;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+  }
+  main {
+    min-width: 0; // Crucial for preventing code blocks from breaking layout
+    padding-bottom: 5vh;
+  }
+}
+
+nav li a {
+  color: var(--pico-contrast);
+  text-decoration-color: var(--pico-contrast);
+  &[aria-current='page'] {
+    color: var(--pico-primary);
+    text-decoration: none;
+  }
+}
+
+// FOOTER
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  nav {
+    justify-content: center;
+  }
+  .heart:hover {
+    display: inline-block;
+    animation: heart 1s ease-in-out infinite alternate;
+  }
+}
+
+// NAV TOGGLER
+
+#nav-toggle {
+  .material-symbols-outlined::after {
+    content: 'menu';
+    vertical-align: middle;
+  }
+  .active .material-symbols-outlined::after {
+    content: 'close';
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #nav-toggle {
+    display: none;
+  }
+}
+
+// LANDING PAGE
+
+.landing {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: space-between;
+  min-height: 100vh;
+  header {
+    background-color: transparent;
+  }
+  main {
+    text-align: center;
+    h1 {
+      color: var(--pico-primary);
+      animation: glow 1s ease-in-out infinite alternate;
+      @media screen and (min-width: 360px) {
+        font-size: 3.5rem;
+      }
+    }
+    img {
+      animation: pulse 1s ease-in-out infinite alternate;
+      margin: 2rem 0;
+    }
+    a {
+      width: 8rem;
+      margin: 0 var(--pico-nav-element-spacing-horizontal) var(--pico-spacing) var(--pico-nav-element-spacing-horizontal);
+    }
+  }
+}
+
+// CODE
+
+pre > code {
+  padding-right: 2rem;
+}
+
+// HANDWRITTEN FONT
+
+h1,
+h2,
+h3,
+.logo,
+em {
+  // font-family: 'Kalam', cursive;
+  font-family: 'Playwrite AU NSW', cursive;
+  font-optical-sizing: auto;
+
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.3em;
+}
+
+// ANIMATIONS
+
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 0.1em var(--pico-background-color),
+      0 0 0.2em var(--pico-background-color),
+      0 0 0.3em var(--pico-primary-background);
+  }
+  to {
+    text-shadow:
+      0 0 0.2em var(--pico-background-color),
+      0 0 0.3em var(--pico-primary-background),
+      0 0 0.4em var(--pico-primary-background);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.98);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes heart {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}
+
+// ICONS
+
+.icon-map {
+  display: none;
+}
+
+.icon {
+  height: 1em;
+  width: 1em;
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+  font-size: 1em;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+// BLOCKQUOTES / ALERTS
+
+blockquote {
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.blockquote-title {
+  font-weight: bold;
+  vertical-align: middle;
+  &::before {
+    font-family: 'Material Symbols Outlined';
+    font-size: 1.2rem;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+    margin-right: 0.3rem;
+    display: inline-block;
+    font-weight: normal;
+  }
+}
+
+.blockquote-note {
+  border-left-color: #0366d6;
+  .blockquote-title {
+    color: #0366d6;
+    &::before {
+      content: 'info';
+    }
+  }
+}
+
+.blockquote-tip {
+  border-left-color: green;
+  .blockquote-title {
+    color: green;
+    &::before {
+      content: 'lightbulb';
+    }
+  }
+}
+
+.blockquote-important {
+  border-left-color: #6f42c1;
+  .blockquote-title {
+    color: #6f42c1;
+    &::before {
+      content: 'feedback';
+    }
+  }
+}
+
+.blockquote-warning {
+  border-left-color: var(--pico-primary);
+  .blockquote-title {
+    color: var(--pico-primary);
+    &::before {
+      content: 'warning';
+    }
+  }
+}
+
+.blockquote-caution {
+  border-left-color: #d73a49;
+  .blockquote-title {
+    color: #d73a49;
+    &::before {
+      content: 'dangerous';
+    }
+  }
+}
+
+// DIAGRAMS
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  svg {
+    max-width: 100%;
+  }
+}

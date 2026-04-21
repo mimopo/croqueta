@@ -1,0 +1,13 @@
+{
+  "editor.rulers": [140],
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.requireConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

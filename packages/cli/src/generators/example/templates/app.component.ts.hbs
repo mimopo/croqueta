@@ -1,0 +1,17 @@
+import { Component, css, html } from '@mimopo/croqueta';
+
+/**
+ * AppComponentComponent
+ */
+export class AppComponent extends Component {
+  public static tag = 'app-root';
+  public static styles = css`
+    :host {
+      display: block;
+    }
+  `;
+
+  protected render() {
+    return html`<div>{{className name}}Component Works!</div>`;
+  }
+}

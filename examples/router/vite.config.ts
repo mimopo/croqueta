@@ -1,0 +1,11 @@
+import { defineConfig } from 'vite';
+
+import { viteBaseConfig } from '../../vite.base-config';
+
+export default defineConfig({
+  ...viteBaseConfig,
+  build: {
+    outDir: '../../dist/examples/router',
+    emptyOutDir: true,
+  },
+});
