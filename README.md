@@ -126,4 +126,4 @@ Check [CONTRIBUTING.md](./CONTRIBUTING.md?github) for more information.
 
 ## ⚖️ License
 
-Croqueta is licensed under the [MIT license](./LICENSE.md)
+Croqueta is licensed under the [MIT license](./LICENSE.md?github)
