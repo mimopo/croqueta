@@ -28,7 +28,7 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "examples-router": "npm start -w examples/router",
-    "examples-state": "npm start -w examples/router"
+    "examples-state": "npm start -w examples/state"
   },
   "dependencies": {
     "minimist": "^1.2.8",
