@@ -323,4 +323,4 @@ export const routes: Route[] = [
 For a complete working example of the router in action, check out the [Router Example Application](../../../../examples/router?github).
 
 You can open it directly with
-[StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main/examples/router?file=src/main.ts)
+[StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main?file=examples/router/src/main.ts&startScript=examples-router)

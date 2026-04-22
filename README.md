@@ -109,10 +109,10 @@ npx @mimopo/croqueta-cli ai-agent-skills
 
 Check out our functional examples in the repository or open them directly on StackBlitz:
 
-| Example                            | StackBlitz                                                                                                        |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| [Router](./examples/router?github) | [Open in StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main/examples/router?file=src/main.ts) |
-| [State](./examples/state?github)   | [Open in StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main/examples/state?file=src/main.ts)  |
+| Example                            | StackBlitz                                                                                                                                    |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Router](./examples/router?github) | [Open in StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main?file=examples/router/src/main.ts&startScript=examples-router) |
+| [State](./examples/state?github)   | [Open in StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main?file=examples/state/src/main.ts&startScript=examples-state)   |
 
 ## 🤝 Contributing
 

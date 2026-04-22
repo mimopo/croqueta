@@ -208,4 +208,4 @@ export const usersFeature = createFeature({
 For a complete working example of the state management in action, check out the [State Example Application](../../../../examples/state?github).
 
 You can open it directly with
-[StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main/examples/state?file=src/main.ts)
+[StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main?file=examples/state/src/main.ts&startScript=examples-state)
