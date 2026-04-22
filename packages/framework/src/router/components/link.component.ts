@@ -67,8 +67,10 @@ export class LinkComponent extends HTMLAnchorElement {
   private updateClass(path: string) {
     const activeClass = this.getAttribute('activeClass') ?? 'active';
     if (path === this.route) {
+      this.setAttribute('aria-current', 'page');
       this.classList.add(activeClass);
     } else {
+      this.removeAttribute('aria-current');
       this.classList.remove(activeClass);
     }
   }

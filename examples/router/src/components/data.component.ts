@@ -8,10 +8,8 @@ export class DataComponent extends Component {
   protected render(): Node {
     const json = computed(() => JSON.stringify({ message: this.messageSignal.get() }, null, 2));
     return html`
-      <div>
-        <p>This component receives data as inputs:</p>
-        <pre>${json}</pre>
-      </div>
+      <p>This component receives data as inputs:</p>
+      <pre><code>${json}</code></pre>
     `;
   }
 }

@@ -1,4 +1,4 @@
-import { PathRouterStrategy, StylesService, css, inject, provideRouter, registerComponent } from '@mimopo/croqueta';
+import { PathRouterStrategy, StylesService, inject, provideRouter, registerComponent } from '@mimopo/croqueta';
 
 import { AppComponent } from './app.component';
 import { DataComponent } from './components/data.component';
@@ -6,25 +6,9 @@ import { ExampleComponent } from './components/example.component';
 import { NestedComponent } from './components/nested.component';
 import { NotFoundComponent } from './components/not-found.component';
 
-import normalize from 'normalize.css?inline';
-
-// CSS tagged template literal allows you to have css synthax highlighting in your IDE
-const globalStyles = css`
-  p {
-    margin: 0 0 1rem 0;
-  }
-  pre {
-    background-color: var(--background-accent-color);
-    color: var(--color);
-    padding: 1rem;
-  }
-  a {
-    color: var(--link-color);
-  }
-`;
-
 // Global styles are applied to all the components
-inject(StylesService).addGlobalStyles(normalize, globalStyles);
+import pico from '@picocss/pico/css/pico.amber.min.css?inline';
+inject(StylesService).addGlobalStyles(pico);
 
 // Provide the router configuration with different examples
 provideRouter({

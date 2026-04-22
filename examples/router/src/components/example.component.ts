@@ -4,10 +4,6 @@ export class ExampleComponent extends Component {
   public static tag = 'app-example';
 
   protected render(): Node {
-    return html`
-      <div>
-        <p>This is an example component</p>
-      </div>
-    `;
+    return html`<p>This is an example component</p>`;
   }
 }
