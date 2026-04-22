@@ -165,7 +165,7 @@ inject(StylesService).addGlobalStyles(`.hidden { display: none; }`);
 
 ## Lifecycle
 
-Components uses the standard [Custom Elements lifecycle callbacks](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#custom_element_lifecycle_callbacks). There are no custom lifecycle callbacks in purpose, but you can use the standard ones depending on what you need to do:
+Components use the standard [Custom Elements lifecycle callbacks](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#custom_element_lifecycle_callbacks). There are no custom lifecycle callbacks on purpose, but you can use the standard ones depending on what you need to do:
 
 > [!IMPORTANT]
 > If you override them, **always call the super method** to ensure the framework's internal logic (like effects cleanup or rendering) works correctly.
@@ -189,7 +189,7 @@ disconnectedCallback() {
 
 ## Reactivity
 
-Croqueta uses **Signals** for reactivity (the signals implementation follows the [TC39 Signals proposal](https://github.com/tc39/proposal-signals)). When a signal used in a template, the UI updates automatically by updating only the changed nodes.
+Croqueta uses **Signals** for reactivity (the signals implementation follows the [TC39 Signals proposal](https://github.com/tc39/proposal-signals)). When a signal is used in a template, the UI updates automatically by updating only the changed nodes.
 
 ### Signals
 
@@ -273,7 +273,7 @@ Use `this.input()` to define reactive properties that can be set from the outsid
 > Remember the signal and the property must have different names, if you forget it the framework will throw an error.
 
 > [!TIP]
-> Choose a convention you can stick to it, for example keep the signal [private](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_elements) by prefixing it with `#` or adding a prefix like `_`.
+> Choose a convention you can stick to, for example keep the signal [private](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_elements) by prefixing it with `#` or adding a prefix like `_`.
 
 ```typescript
 import { Component, html } from '@mimopo/croqueta';

@@ -19,7 +19,7 @@ Probably the world doesn't need another JavaScript framework, but I just wanted 
 
 - **Standard Based**: Components are built on top of [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_Components) and the rendering system is written as a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 - **Future-Proof**: Reactivity is achieved by using the [TC39 Signals Polyfill](https://github.com/proposal-signals/signal-polyfill). When browsers adopt the standard, _Croqueta_ will run natively without the polyfill weight.
-- **Architectural Scalability**: While it includes most of the features needed in a production-grade application, you can just take what you need. It's designed to be modular and interoporable.
+- **Architectural Scalability**: While it includes most of the features needed in a production-grade application, you can just take what you need. It's designed to be modular and interoperable.
 - **Lightweight**: Designed to be lightweight and fast, a whole framework under 15kb gzipped.
 - **Zero-Build option**: Use it directly from a [CDN](https://unpkg.com/@mimopo/croqueta/index.mjs) or install the [NPM package](https://www.npmjs.com/package/@mimopo/croqueta) on your project.
 - **Typed**: The framework is written in TypeScript and provides type definitions for all its APIs.
@@ -29,7 +29,7 @@ Probably the world doesn't need another JavaScript framework, but I just wanted 
 - 📦 [Components](./packages/framework/src/components/): Build reactive components, handle inputs, outputs, and lifecycle with minimal boilerplate.
 - ⚛️ [Reactivity](./packages/framework/src/reactivity/): Track changes and update only the necessary parts of the DOM thanks to signals. Transform data with computed signals and do side effects easily.
 - 💉 [Dependency Injection](./packages/framework/src/di/): Inject services and replace them with mocks during testing.
-- 🚦 [Router](./packages/framework/src/router/): Create your SPA with differnt router strategies, lazy loading, guards, resolvers and more.
+- 🚦 [Router](./packages/framework/src/router/): Create your SPA with different router strategies, lazy loading, guards, resolvers and more.
 - 🔄 [State Management](./packages/framework/src/state/): Redux-pattern state management powered by signals and [Redux DevTools compatible](./packages/framework/src/state-dev?github).
 - 🌀 [Portals](./packages/framework/src/portal/): Render components in different parts of the DOM.
 
@@ -38,7 +38,7 @@ Probably the world doesn't need another JavaScript framework, but I just wanted 
 Drop a script tag with the CDN link in your HTML file:
 
 ```html
-<script script type="importmap">
+<script type="importmap">
   {
     "imports": {
       "@mimopo/croqueta": "https://unpkg.com/@mimopo/croqueta/index.mjs",

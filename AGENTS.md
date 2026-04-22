@@ -19,7 +19,7 @@ This is a monorepo-based custom Web Component framework built from scratch.
 - Use `vitest` to run tests (it uses `jsdom`)
 - Use `oxlint` and `oxfmt` for linting and formatting after modifications
 - Use `npm run build -w <package>` to build a package
-- Use `npm run start -w <package>` to to run dev server
+- Use `npm run start -w <package>` to run dev server
 
 # Structure
 
