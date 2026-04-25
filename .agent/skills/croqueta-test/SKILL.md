@@ -12,7 +12,7 @@ compatibility: Requires @mimopo/croqueta-cli, @mimopo/croqueta, node
 Use this skill when the user is using croqueta framework and needs to generate a test file for an existing component or service.
 It's always better to use this skill than to create the files manually.
 
-## Prequisites
+## Prerequisites
 
 The user must have the following packages installed, don't proceed if not installed:
 

@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: var(--pico-block-spacing-vertical) 0;
+}
+header {
+  display: grid;
+  grid-template-areas: 'logo header';
+  grid-template-columns: auto 1fr;
+}
+.logo {
+  grid-area: logo;
+  margin-right: 1rem;
+}
+h1 {
+  margin: 0;
+  align-self: center;
+}
+ul {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+}
+ul li {
+  background-color: #fff1;
+  border-radius: 1rem;
+  padding: 1rem;
+  list-style: none;
+}
+ul,
+img {
+  margin-bottom: 1rem;
+}
+button {
+  min-width: 50%;
+  margin: 1rem auto;
+  display: block;
+}

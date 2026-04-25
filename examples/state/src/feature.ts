@@ -1,4 +1,13 @@
-import { type Reducers, Store, createAction, createFeature, createFeatureSelector, createSelector, inject } from '@mimopo/croqueta';
+import {
+  type AnyAction,
+  type Reducers,
+  Store,
+  createAction,
+  createFeature,
+  createFeatureSelector,
+  createSelector,
+  inject,
+} from '@mimopo/croqueta';
 
 import type { ApiCharactersResponse, CharactersFeatureState } from './model';
 import { ApiService } from './service';
@@ -50,7 +59,7 @@ export const charactersFeature = createFeature({
   reducers,
   selectors,
   effects: [
-    async (store: Store) => {
+    async (store: Store): Promise<void | AnyAction> => {
       const actionType = actions.get().type;
       const action = store.actions.get();
       if (action.type === actionType) {

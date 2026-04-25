@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: var(--pico-block-spacing-vertical) 0;
+}
+
+.logo,
+aside {
+  margin-bottom: var(--pico-block-spacing-vertical);
+}
+
+a.active {
+  text-decoration: underline !important;
+  font-weight: bold !important;
+}
+
+nav ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 500px) {
+  nav ul {
+    grid-template-columns: auto;
+  }
+  .container-fluid {
+    display: grid;
+    grid-template-areas: 'logo header' 'sidebar content';
+    grid-template-columns: auto 1fr;
+  }
+}

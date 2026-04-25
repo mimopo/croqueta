@@ -64,7 +64,7 @@ Source code:
 
 - All the code must be formatted using [oxfmt](https://www.npmjs.com/package/oxfmt).
 - All the code must pass the [oxlint](https://www.npmjs.com/package/oxlint) checks.
-- Use strong typing always possible.
+- Use strong typing whenever possible.
 - Always write unit tests for any contribution.
 - Document public API with [TSDoc](https://tsdoc.org/) comments, including classes, interfaces, methods and public fields.
 
@@ -82,7 +82,7 @@ This project follows [GitHub Flow](https://docs.github.com/en/get-started/using-
 
 ### Commit messages
 
-- You don't need to use an specific convention for commit messages. However, all of them will be squashed into a single commit using the pull request title.
+- You don't need to use a specific convention for commit messages. However, all of them will be squashed into a single commit using the pull request title.
 
 ## Documentation
 

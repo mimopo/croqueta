@@ -132,7 +132,7 @@ class ExampleComponent extends Component {
 
 ## Data resolvers
 
-Data resolvers allows you to obtain data before the component is rendered. You just need to add a `data` object, where each key represents the property mapped to the component and each value is a function that returns the data.
+Data resolvers allow you to obtain data before the component is rendered. You just need to add a `data` object, where each key represents the property mapped to the component and each value is a function that returns the data.
 
 ```typescript
 const routes: Route[] = [
@@ -155,7 +155,7 @@ const routes: Route[] = [
 
 ## Page title
 
-The `title` function allows you to set the title of the page for the current route, when the user leaves the route the title will be restored to the previous one. It's a function that receive the URL parameters and returns a string.
+The `title` function allows you to set the title of the page for the current route, when the user leaves the route the title will be restored to the previous one. It's a function that receives the URL parameters and returns a string.
 
 ```typescript
 const routes: Route[] = [
@@ -172,7 +172,7 @@ const routes: Route[] = [
 
 ## Named routes
 
-Named routes allows you to navigate by name instead of path, centralizing the route definition. This is particularly useful when your application routes grows a lot. You can use the `name` property to assign a name to a route.
+Named routes allows you to navigate by name instead of path, centralizing the route definition. This is particularly useful when your application routes grow a lot. You can use the `name` property to assign a name to a route.
 
 ```typescript
 const routes: Route[] = [
@@ -222,7 +222,7 @@ const routes: Route[] = [
 ```
 
 > [!IMPORTANT]
-> If several nested routes has the same resolved data keys, the last one will overwrite the previous ones.
+> If several nested routes have the same resolved data keys, the last one will overwrite the previous ones.
 
 ## Redirects
 
@@ -242,7 +242,7 @@ const routes: Route[] = [
 
 ## Wildcard routes
 
-To capture any route that doesn't match any of the defined routes, you can use the wildcard route at the end of the routes array. It's just a regular route with an special path `**`.
+To capture any route that doesn't match any of the defined routes, you can use the wildcard route at the end of the routes array. It's just a regular route with a special path `**`.
 
 ```typescript
 const routes: Route[] = [
@@ -255,7 +255,7 @@ const routes: Route[] = [
 
 ## Route Guards
 
-Guards allow you to control navigation based on custom logic (e.g., authentication). You can add as many guard functions you need, they will be executed sequentially. If any guard returns `false`, navigation is aborted.
+Guards allow you to control navigation based on custom logic (e.g., authentication). You can add as many guard functions as you need, they will be executed sequentially. If any guard returns `false`, navigation is aborted.
 
 - **`accessGuard`**: Checked before entering a route. Useful for access control.
 - **`leaveGuard`**: Checked before navigating away from a route. Useful for preventing users from losing unsaved changes.
@@ -323,4 +323,4 @@ export const routes: Route[] = [
 For a complete working example of the router in action, check out the [Router Example Application](../../../../examples/router?github).
 
 You can open it directly with
-[StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main/examples/router?file=src/main.ts)
+[StackBlitz ⚡️](https://stackblitz.com/github/mimopo/croqueta/tree/main?file=examples/router/src/main.ts&startScript=examples-router)
