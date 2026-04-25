@@ -1,5 +1,6 @@
 {
   "name": "@mimopo/croqueta-docs",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,6 +8,6 @@
     "build": "tsc && vite build"
   },
   "devDependencies": {
-    "@mimopo/vite-plugins": "*"
+    "@mimopo/vite-plugins": "workspace:*"
   }
 }

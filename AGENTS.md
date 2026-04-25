@@ -14,12 +14,12 @@ This is a monorepo-based custom Web Component framework built from scratch.
 
 # Environment
 
-- Use `npm` for package management
-- Use `npx` for executing node tools
+- Use `pnpm` for package management
+- Use `pnpm exec` for executing node tools
 - Use `vitest` to run tests (it uses `jsdom`)
 - Use `oxlint` and `oxfmt` for linting and formatting after modifications
-- Use `npm run build -w <package>` to build a package
-- Use `npm run start -w <package>` to run dev server
+- Use `pnpm build -C ./<package>` to build a package
+- Use `pnpm start -C ./<package>` to run dev server
 
 # Structure
 

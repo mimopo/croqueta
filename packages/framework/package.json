@@ -1,5 +1,6 @@
 {
   "name": "@mimopo/croqueta",
+  "version": "0.0.0",
   "type": "module",
   "sideEffects": false,
   "module": "./src/index.ts",
@@ -8,15 +9,17 @@
     "./dev": "./src/dev.ts",
     "./testing": "./src/testing.ts"
   },
+  "publishConfig": {
+    "directory": "../../dist/framework/"
+  },
   "scripts": {
     "build": "tsc && vite build",
-    "test": "vitest run",
-    "release": "npm publish --provenance -d ../../dist/framework/"
+    "test": "vitest run"
   },
   "dependencies": {
     "signal-polyfill": "*"
   },
   "devDependencies": {
-    "@mimopo/vite-plugins": "*"
+    "@mimopo/vite-plugins": "workspace:*"
   }
 }

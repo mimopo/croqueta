@@ -20,17 +20,17 @@
   ],
   "type": "module",
   "scripts": {
-    "test": "npm run test --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present",
-    "release": "npm run release --workspaces --if-present",
+    "test": "pnpm -r --if-present test",
+    "build": "pnpm -r --if-present build",
     "gh-release": "gh release create $npm_package_version --generate-notes",
     "bump": "node scripts/bump.ts",
     "lint": "oxlint",
     "format": "oxfmt",
-    "examples-router": "npm start -w examples/router",
-    "examples-state": "npm start -w examples/state"
+    "examples-router": "pnpm -C ./examples/router start",
+    "examples-state": "pnpm -C ./examples/state start"
   },
   "dependencies": {
+    "@mimopo/croqueta": "workspace:*",
     "minimist": "^1.2.8",
     "plop": "^4.0.5",
     "signal-polyfill": "^0.2.2"
@@ -70,6 +70,8 @@
     "node": ">= 24.0.0"
   },
   "volta": {
-    "node": "24.15.0"
-  }
+    "node": "24.15.0",
+    "pnpm": "10.33.2"
+  },
+  "packageManager": "pnpm@10.33.2"
 }

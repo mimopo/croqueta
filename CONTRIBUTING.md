@@ -47,18 +47,18 @@ Source code:
 
 ## Local Environment Setup
 
-- Install Node and NPM versions indicated on the project's [package.json](./package.json) file.
-- Install dependencies using `npm ci`.
+- Install Node and PNPM versions indicated on the project's [package.json](./package.json) file.
+- Install dependencies using `pnpm install`.
 
 > [!TIP]
-> The project comes already configured for [Volta](https://volta.sh/) version manager, which automatically uses the correct Node and NPM versions for you.
+> The project comes already configured for [Volta](https://volta.sh/) version manager, which automatically uses the correct Node and PNPM versions for you.
 
 ## Common Tasks
 
-- Install dependencies: `npm ci`
-- Run tests: `npm run test`
-- Build the project: `npm run build`
-- Start development server: `npm start -w PROJECT_PATH`
+- Install dependencies: `pnpm install`
+- Run tests: `pnpm test`
+- Build the project: `pnpm build`
+- Start development server: `pnpm start -C ./project/path`
 
 ## Code Style
 
@@ -91,4 +91,4 @@ This project follows [GitHub Flow](https://docs.github.com/en/get-started/using-
 - Avoid using HTML tags.
 - Documentation site is compiled using a custom [Vite](https://vitejs.dev/) plugin and published on [GitHub Pages](https://pages.github.com/).
 - Diagrams must be created using [draw.io](https://www.drawio.com/) and stored as `.drawio.svg` files.
-- Run the documentation site locally with `npm start -w packages/docs`.
+- Run the documentation site locally with `pnpm start -C ./packages/docs`.

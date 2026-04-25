@@ -46,16 +46,16 @@ jobs:
         run: |
           BASE_REF=$(gh pr view --json baseRefName --jq '.baseRefName')
           BASE_VERSION=$(git show origin/$BASE_REF:package.json | jq -r .version)
-          npm version $BASE_VERSION --no-commit-hooks --no-git-tag-version --allow-same-version
-          gh pr view --json title --jq '.title' | npm run bump
+          pnpm version $BASE_VERSION --no-commit-hooks --no-git-tag-version --allow-same-version
+          gh pr view --json title --jq '.title' | pnpm bump
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Build
-        run: | 
-          npm run build -w packages/cli/ 
-          npm run build -w packages/framework/
+        run: |
+          pnpm build -C ./packages/cli/ 
+          pnpm build -C ./packages/framework/
       - name: NPM publish
-        run: npm run release
+        run: pnpm publish -r --provenance
       - name: Commit version bump
         run: |
           git add package.json package-lock.json
@@ -73,7 +73,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Release
-        run: npm run gh-release
+        run: pnpm gh-release
         env:
           GH_TOKEN: ${{ github.token }}
 

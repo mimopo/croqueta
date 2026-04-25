@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
-      - run: npm run lint
+      - run: pnpm lint
 
   test:
     name: Test
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
-      - run: npm run test
+      - run: pnpm test
 
   build:
     name: Build
@@ -43,4 +43,4 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
-      - run: npm run build
+      - run: pnpm build
