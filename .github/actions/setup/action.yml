@@ -6,6 +6,6 @@ runs:
     - uses: actions/setup-node@v6
       with:
         node-version-file: 'package.json'
-        cache: 'npm'
-    - run: npm ci
+        cache: 'pnpm'
+    - run: pnpm insall
       shell: bash
