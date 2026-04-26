@@ -113,7 +113,6 @@ importers:
       '@mimopo/vite-plugins':
         specifier: workspace:*
         version: link:../vite-plugins
-    publishDirectory: ../../dist/cli/
 
   packages/docs:
     devDependencies:
@@ -130,7 +129,6 @@ importers:
       '@mimopo/vite-plugins':
         specifier: workspace:*
         version: link:../vite-plugins
-    publishDirectory: ../../dist/framework/
 
   packages/vite-plugins:
     devDependencies:

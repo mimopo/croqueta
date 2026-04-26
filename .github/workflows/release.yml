@@ -55,7 +55,9 @@ jobs:
           pnpm -C ./packages/cli/ build
           pnpm -C ./packages/framework/ build
       - name: NPM publish
-        run: pnpm publish -r --provenance
+        run: |
+          pnpm publish ./dist/cli/ --provenance --access=public
+          pnpm publish ./dist/framework/ --provenance --access=public
       - name: Commit version bump
         run: |
           git add package.json package-lock.json

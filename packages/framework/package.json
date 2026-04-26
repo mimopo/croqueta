@@ -1,6 +1,7 @@
 {
   "name": "@mimopo/croqueta",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "sideEffects": false,
   "module": "./src/index.ts",
@@ -8,9 +9,6 @@
     ".": "./src/index.ts",
     "./dev": "./src/dev.ts",
     "./testing": "./src/testing.ts"
-  },
-  "publishConfig": {
-    "directory": "../../dist/framework/"
   },
   "scripts": {
     "build": "tsc && vite build",

@@ -17,6 +17,7 @@ export default defineConfig({
   plugins: [
     copyPackagePlugin({
       override: {
+        private: false,
         module: './index.mjs',
         typings: './index.d.ts',
         exports: {
