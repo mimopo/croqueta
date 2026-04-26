@@ -10,10 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/mimopo/croqueta.git"
   },
-  "bin": {
-    "cocreta": "packages/cli/src/index.ts",
-    "croqueta": "packages/cli/src/index.ts"
-  },
   "type": "module",
   "scripts": {
     "test": "pnpm -r --if-present test",
@@ -26,6 +22,7 @@
   },
   "dependencies": {
     "@mimopo/croqueta": "workspace:*",
+    "@mimopo/croqueta-cli": "workspace:*",
     "minimist": "^1.2.8",
     "plop": "^4.0.5",
     "signal-polyfill": "^0.2.2"

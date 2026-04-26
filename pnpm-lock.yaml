@@ -17,6 +17,9 @@ importers:
       '@mimopo/croqueta':
         specifier: workspace:*
         version: link:packages/framework
+      '@mimopo/croqueta-cli':
+        specifier: workspace:*
+        version: link:packages/cli
       minimist:
         specifier: ^1.2.8
         version: 1.2.8
