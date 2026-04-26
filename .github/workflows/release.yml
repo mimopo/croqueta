@@ -47,7 +47,7 @@ jobs:
           BASE_REF=$(gh pr view --json baseRefName --jq '.baseRefName')
           BASE_VERSION=$(git show origin/$BASE_REF:package.json | jq -r .version)
           pnpm version $BASE_VERSION --no-commit-hooks --no-git-tag-version --allow-same-version
-          gh pr view --json title --jq '.title' | pnpm bump
+          gh pr view --json title --jq '.title' | node scripts/bump.ts
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Build

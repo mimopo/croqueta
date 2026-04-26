@@ -23,7 +23,6 @@
     "test": "pnpm -r --if-present test",
     "build": "pnpm -r --if-present build",
     "gh-release": "gh release create $npm_package_version --generate-notes",
-    "bump": "node scripts/bump.ts",
     "lint": "oxlint",
     "format": "oxfmt",
     "examples-router": "pnpm -C ./examples/router start",

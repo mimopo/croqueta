@@ -33,7 +33,7 @@ function getBump() {
 
 try {
   const bump = getBump();
-  execSync(`npm version ${bump} --no-commit-hooks --no-git-tag-version`, { stdio: 'inherit' });
+  execSync(`pnpm version ${bump} --no-commit-hooks --no-git-tag-version`, { stdio: 'inherit' });
 } catch (e) {
   console.error(e);
   process.exit(1);
