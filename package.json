@@ -14,10 +14,6 @@
     "cocreta": "packages/cli/src/index.ts",
     "croqueta": "packages/cli/src/index.ts"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
   "type": "module",
   "scripts": {
     "test": "pnpm -r --if-present test",
@@ -25,8 +21,8 @@
     "gh-release": "gh release create $npm_package_version --generate-notes",
     "lint": "oxlint",
     "format": "oxfmt",
-    "examples-router": "pnpm -C ./examples/router start",
-    "examples-state": "pnpm -C ./examples/state start"
+    "examples-router": "pnpm -C ./examples/router dev",
+    "examples-state": "pnpm -C ./examples/state dev"
   },
   "dependencies": {
     "@mimopo/croqueta": "workspace:*",
@@ -58,12 +54,6 @@
     "unplugin-dts": "^1.0.0-beta.6",
     "vite": "^8.0.3",
     "vitest": "^4.1.2"
-  },
-  "overrides": {
-    "@microsoft/api-extractor": "$@microsoft/api-extractor",
-    "ajv": "^8.17.1",
-    "lodash": "^4.18.1",
-    "minimatch": "^10.2.1"
   },
   "engines": {
     "node": ">= 24.0.0"

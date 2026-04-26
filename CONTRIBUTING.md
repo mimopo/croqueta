@@ -58,7 +58,7 @@ Source code:
 - Install dependencies: `pnpm install`
 - Run tests: `pnpm test`
 - Build the project: `pnpm build`
-- Start development server: `pnpm start -C ./project/path`
+- Start development server: `pnpm -C ./project/path dev`
 
 ## Code Style
 
@@ -91,4 +91,4 @@ This project follows [GitHub Flow](https://docs.github.com/en/get-started/using-
 - Avoid using HTML tags.
 - Documentation site is compiled using a custom [Vite](https://vitejs.dev/) plugin and published on [GitHub Pages](https://pages.github.com/).
 - Diagrams must be created using [draw.io](https://www.drawio.com/) and stored as `.drawio.svg` files.
-- Run the documentation site locally with `pnpm start -C ./packages/docs`.
+- Run the documentation site locally with `pnpm -C ./packages/docs dev`.

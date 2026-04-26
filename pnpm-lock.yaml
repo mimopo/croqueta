@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@microsoft/api-extractor': ^7.58.0
+  ajv: ^8.17.1
+  lodash: ^4.18.1
+  minimatch: ^10.2.1
+
 importers:
 
   .:
@@ -1039,7 +1045,7 @@ packages:
   ajv-draft-04@1.0.0:
     resolution: {integrity: sha512-mv00Te6nmYbRp5DCwclxtt7yV/joXJPGS7nM+97GdxvuttCOfgI3K4U25zboyeX0O+myI8ERluxQe5wljMmVIw==}
     peerDependencies:
-      ajv: ^8.5.0
+      ajv: ^8.17.1
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -1047,7 +1053,7 @@ packages:
   ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
     peerDependencies:
-      ajv: ^8.0.0
+      ajv: ^8.17.1
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -2341,7 +2347,7 @@ packages:
   unplugin-dts@1.0.0-beta.6:
     resolution: {integrity: sha512-+xbFv5aVFtLZFNBAKI4+kXmd2h+T42/AaP8Bsp0YP/je/uOTN94Ame2Xt3e9isZS+Z7/hrLCLbsVJh+saqFMfQ==}
     peerDependencies:
-      '@microsoft/api-extractor': '>=7'
+      '@microsoft/api-extractor': ^7.58.0
       '@rspack/core': ^1
       '@vue/language-core': ~3.0.1
       esbuild: '*'

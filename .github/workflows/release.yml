@@ -52,8 +52,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Build
         run: |
-          pnpm build -C ./packages/cli/ 
-          pnpm build -C ./packages/framework/
+          pnpm -C ./packages/cli/ build
+          pnpm -C ./packages/framework/ build
       - name: NPM publish
         run: pnpm publish -r --provenance
       - name: Commit version bump
