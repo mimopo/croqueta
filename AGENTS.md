@@ -18,8 +18,8 @@ This is a monorepo-based custom Web Component framework built from scratch.
 - Use `pnpm exec` for executing node tools
 - Use `vitest` to run tests (it uses `jsdom`)
 - Use `oxlint` and `oxfmt` for linting and formatting after modifications
-- Use `pnpm -C ./<package> build` to build a package
-- Use `pnpm -C ./<package> dev` to run dev server
+- Use `pnpm -C ./package/path build` to build a package
+- Use `pnpm -C ./package/path dev` to run dev server
 
 # Structure
 

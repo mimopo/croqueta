@@ -60,7 +60,7 @@ jobs:
           pnpm publish ./dist/framework/ --provenance --access=public
       - name: Commit version bump
         run: |
-          git add package.json package-lock.json
+          git add package.json
           git status
           if [ -n "$(git status --porcelain -uno)" ]; then
             git commit -m "chore: version bump [skip ci]"
