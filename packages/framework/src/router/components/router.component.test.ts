@@ -19,13 +19,17 @@ describe('RouterComponent', () => {
     provide(Router, () => ({
       activatedRoutes: activatedRoutesSignal,
     }));
-    provide(Outlet, () => ({
-      register: vi.fn().mockReturnValue(0),
-      unregister: vi.fn(),
-    }));
-    provide(StylesService, () => ({
-      applyStyles: vi.fn(),
-    }));
+    provide(Outlet, () => {
+      return {
+        register: vi.fn<(el: HTMLElement) => number>().mockReturnValue(0),
+        unregister: vi.fn<(el: HTMLElement) => void>(),
+      } as Partial<Outlet>;
+    });
+    provide(StylesService, () => {
+      return {
+        applyStyles: vi.fn<(root: ShadowRoot | HTMLElement, settings: { styles?: string | string[]; tag: string }) => void>(),
+      } as Partial<StylesService>;
+    });
     outlet = inject(Outlet);
     document.body.innerHTML = '';
   });

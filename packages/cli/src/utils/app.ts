@@ -3,7 +3,7 @@ import { bold, gray, green } from './format.ts';
 
 export const version: string = pkg.version;
 
-export const isDev: boolean = version === '0.0.0-dev';
+export const isDev: boolean = version === '0.0.0';
 
 export const welcome = `
 ${green('┌──────────────────────────────────────┐')}

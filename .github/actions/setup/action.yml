@@ -3,9 +3,11 @@ description: Setup Node.js and install dependencies
 runs:
   using: 'composite'
   steps:
+    - uses: pnpm/action-setup@v6
+      with:
+        cache: true
     - uses: actions/setup-node@v6
       with:
         node-version-file: 'package.json'
-        cache: 'npm'
-    - run: npm ci
+    - run: pnpm install --frozen-lockfile
       shell: bash

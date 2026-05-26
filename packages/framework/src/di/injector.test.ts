@@ -105,17 +105,17 @@ describe('Injector', () => {
   });
 
   test('should throw an error if the service is not registered by its class or string token', () => {
-    expect(() => provide(null as any)).toThrow();
-    expect(() => provide(1 as any, () => 1)).toThrow();
-    expect(() => provide(new Date() as any)).toThrow();
-    expect(() => provide((() => 1) as any)).toThrow();
+    expect(() => provide(null as any)).toThrow(/Services must be registered by its class or injection token/);
+    expect(() => provide(1 as any, () => 1)).toThrow(/Services must be registered by its class or injection token/);
+    expect(() => provide(new Date() as any)).toThrow(/Constructor must be a function/);
+    expect(() => provide((() => 1) as any)).toThrow(/Services must be registered by its class or injection token/);
   });
 
   test('should throw an error if the token to get is not a class or string token', () => {
-    expect(() => inject(null as any)).toThrow();
-    expect(() => inject(1 as any)).toThrow();
-    expect(() => inject(new Date() as any)).toThrow();
-    expect(() => inject((() => 1) as any)).toThrow();
+    expect(() => inject(null as any)).toThrow(/Services must be registered by its class or injection token/);
+    expect(() => inject(1 as any)).toThrow(/Services must be registered by its class or injection token/);
+    expect(() => inject(new Date() as any)).toThrow(/No service found for: Token undefined/);
+    expect(() => inject((() => 1) as any)).toThrow(/Services must be registered by its class or injection token/);
   });
 
   test('should throw an error if constructor is not a function', () => {
@@ -135,7 +135,7 @@ describe('Injector', () => {
   });
 
   test('should call destroy the services on destroy', () => {
-    const spy = vi.fn();
+    const spy = vi.fn<() => void>();
     class A implements Destroy {
       destroy = spy;
     }

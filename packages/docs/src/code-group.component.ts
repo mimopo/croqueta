@@ -102,7 +102,9 @@ export class CodeGroupComponent extends Component {
           }),
           (i) => i,
           ({ language, cssClass }) => {
-            return html`<button class="button ${cssClass}" (click)="${() => this.change(language)}" title="view ${language} code">${language}</button>`;
+            return html`<button class="button ${cssClass}" (click)="${() => this.change(language)}" title="view ${language} code">
+              ${language}
+            </button>`;
           }
         )}
       </div>
