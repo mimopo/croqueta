@@ -2,7 +2,6 @@
 name: croqueta-service
 description: create a service
 compatibility: Requires @mimopo/croqueta-cli, @mimopo/croqueta, node
-
 ---
 
 # service
@@ -46,4 +45,3 @@ npx croqueta service --name=[name] --tests=[tests] --dry-run=[dry-run]
 - **description:** dry run, when true no files will be created
 - **type:** confirm
 - **default value:** true
-
