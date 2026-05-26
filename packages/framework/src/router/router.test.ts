@@ -27,18 +27,18 @@ class MockRouterStrategy implements RouterStrategy {
   getHref(path: string): string {
     return '#' + path;
   }
-  destroy = vi.fn();
+  destroy = vi.fn<() => void>();
 }
 
 describe('Router', () => {
   let router: Router;
   let strategy: MockRouterStrategy;
-  const loadChildrenFn = vi.fn(async () => [{ path: '/:id', component: PostComponent }]);
-  const redirectFn = vi.fn(async () => '/about');
-  const loadComponentFn = vi.fn(async () => LazyComponent);
-  const accessGuardFn = vi.fn(async () => false);
-  const leaveGuardFn = vi.fn(async () => false);
-  const titleFn = vi.fn(async ({ title }) => `Test Title: ${title || ''}`);
+  const loadChildrenFn = vi.fn<(params: any) => Promise<any[]>>(async () => [{ path: '/:id', component: PostComponent }]);
+  const redirectFn = vi.fn<(params: any) => Promise<string>>(async () => '/about');
+  const loadComponentFn = vi.fn<(params: any) => Promise<ComponentConstructor>>(async () => LazyComponent);
+  const accessGuardFn = vi.fn<(params: any) => Promise<boolean>>(async () => false);
+  const leaveGuardFn = vi.fn<(params: any) => Promise<boolean>>(async () => false);
+  const titleFn = vi.fn<(params: any) => Promise<string>>(async ({ title }) => `Test Title: ${title || ''}`);
 
   beforeEach(() => {
     vi.spyOn(Logger.prototype, 'debug').mockImplementation(() => {});

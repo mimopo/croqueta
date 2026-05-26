@@ -2,6 +2,7 @@ import { globSync } from 'node:fs';
 import { builtinModules } from 'node:module';
 
 import { assetsPlugin, copyPackagePlugin } from '@mimopo/vite-plugins';
+import type { PluginOption } from 'vite';
 import { defineConfig } from 'vitest/config';
 
 import { viteBaseConfig } from '../../vite.base-config';
@@ -40,7 +41,7 @@ export default defineConfig({
       renderChunk(code) {
         return code.replace(/import\s+(.*?)\s+from\s+(['"]\.\/package\.json['"])/g, 'import $1 from $2 with { type: "json" }');
       },
-    },
+    } as PluginOption,
   ],
   build: {
     emptyOutDir: true,
