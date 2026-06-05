@@ -28,36 +28,36 @@
     "signal-polyfill": "^0.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
     "@microsoft/api-extractor": "^7.58.7",
     "@picocss/pico": "^2.1.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/conventional-commits-parser": "^5.0.2",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^24.12.4",
-    "@vitest/coverage-v8": "^4.1.7",
+    "@types/node": "^24.13.0",
+    "@vitest/coverage-v8": "^4.1.8",
     "conventional-commits-parser": "^6.4.0",
     "jsdom": "^29.1.1",
     "lightningcss": "^1.32.0",
     "marked": "^18.0.4",
     "oxfmt": "^0.52.0",
-    "oxlint": "^1.67.0",
+    "oxlint": "^1.68.0",
     "oxlint-tsgolint": "^0.23.0",
     "sass-embedded": "^1.100.0",
-    "shiki": "^4.1.0",
+    "shiki": "^4.2.0",
     "typedoc": "^0.28.19",
     "typescript": "^6.0.3",
-    "unplugin-dts": "^1.0.1",
-    "vite": "^8.0.14",
-    "vitest": "^4.1.7"
+    "unplugin-dts": "^1.0.2",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
   },
   "engines": {
     "node": ">= 24.16.0"
   },
   "volta": {
     "node": "24.16.0",
-    "pnpm": "11.3.0"
+    "pnpm": "11.5.2"
   },
-  "packageManager": "pnpm@11.3.0"
+  "packageManager": "pnpm@11.5.2"
 }
