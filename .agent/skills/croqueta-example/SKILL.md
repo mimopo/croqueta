@@ -2,7 +2,6 @@
 name: croqueta-example
 description: generate an example application
 compatibility: Requires @mimopo/croqueta-cli, @mimopo/croqueta, node
-
 ---
 
 # example
@@ -40,4 +39,3 @@ npx croqueta example --name=[name] --dry-run=[dry-run]
 - **description:** dry run, when true no files will be created
 - **type:** confirm
 - **default value:** true
-

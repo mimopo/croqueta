@@ -5,14 +5,14 @@ import { signal } from './signal';
 
 describe('effect', () => {
   test('should run immediately', () => {
-    const spy = vi.fn();
+    const spy = vi.fn<() => void>();
     effect(spy);
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
   test('should run when dependency changes', async () => {
     const s = signal(1);
-    const spy = vi.fn(() => {
+    const spy = vi.fn<() => void>(() => {
       s.get();
     });
     effect(spy);
@@ -26,8 +26,8 @@ describe('effect', () => {
 
   test('should call cleanup before re-run', async () => {
     const s = signal(1);
-    const cleanup = vi.fn();
-    const spy = vi.fn(() => {
+    const cleanup = vi.fn<() => void>();
+    const spy = vi.fn<() => void | (() => void)>(() => {
       s.get();
       return cleanup;
     });
@@ -43,7 +43,7 @@ describe('effect', () => {
   });
 
   test('should call cleanup on disposal', () => {
-    const cleanup = vi.fn();
+    const cleanup = vi.fn<() => void>();
     const dispose = effect(() => {
       return cleanup;
     });
@@ -55,7 +55,7 @@ describe('effect', () => {
 
   test('should not run after disposal', async () => {
     const s = signal(1);
-    const spy = vi.fn(() => {
+    const spy = vi.fn<() => void>(() => {
       s.get();
     });
     const dispose = effect(spy);
@@ -70,7 +70,7 @@ describe('effect', () => {
   test('should handle multiple dependencies', async () => {
     const s1 = signal(1);
     const s2 = signal(10);
-    const spy = vi.fn(() => {
+    const spy = vi.fn<() => void>(() => {
       void (s1.get() + s2.get());
     });
 

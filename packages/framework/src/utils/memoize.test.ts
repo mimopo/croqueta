@@ -9,7 +9,7 @@ describe('memoize', () => {
   });
 
   test('should return the cached result on subsequent calls with the same arguments', () => {
-    const fn = vi.fn((a: number, b: number) => a + b);
+    const fn = vi.fn<(a: number, b: number) => number>((a: number, b: number) => a + b);
     const memoizedFn = memoize(fn);
 
     memoizedFn(1, 2);
@@ -21,7 +21,7 @@ describe('memoize', () => {
   });
 
   test('should re-execute when arguments are different', () => {
-    const fn = vi.fn((a: number, b: number) => a + b);
+    const fn = vi.fn<(a: number, b: number) => number>((a: number, b: number) => a + b);
     const memoizedFn = memoize(fn);
 
     expect(memoizedFn(1, 2)).toBe(3);
@@ -31,7 +31,7 @@ describe('memoize', () => {
   });
 
   test('should handle functions with no arguments', () => {
-    const fn = vi.fn(() => Math.random());
+    const fn = vi.fn<() => number>(() => Math.random());
     const memoizedFn = memoize(fn);
 
     const result1 = memoizedFn();
@@ -42,7 +42,7 @@ describe('memoize', () => {
   });
 
   test('should differentiate between similar but not identical object arguments', () => {
-    const fn = vi.fn((obj: { a: number }) => obj.a);
+    const fn = vi.fn<(obj: { a: number }) => number>((obj: { a: number }) => obj.a);
     const memoizedFn = memoize(fn);
 
     const obj1 = { a: 1 };
@@ -55,7 +55,7 @@ describe('memoize', () => {
   });
 
   test('should return cached result for the same object reference', () => {
-    const fn = vi.fn((obj: { a: number }) => obj.a);
+    const fn = vi.fn<(obj: { a: number }) => number>((obj: { a: number }) => obj.a);
     const memoizedFn = memoize(fn);
 
     const obj1 = { a: 1 };

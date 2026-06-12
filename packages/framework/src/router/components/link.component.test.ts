@@ -13,8 +13,8 @@ describe('LinkComponent', () => {
     // Mock Router
     pathSignal = signal('/');
     routerMock = {
-      getHref: vi.fn((path) => `#${path}`),
-      navigate: vi.fn(),
+      getHref: vi.fn<(path: string) => string>((path) => `#${path}`),
+      navigate: vi.fn<(path: string, params?: Record<string, string>) => Promise<void>>(),
       path: pathSignal,
     };
 
@@ -100,7 +100,7 @@ describe('LinkComponent', () => {
     } as any) as LinkComponent;
     document.body.appendChild(element);
     const disposerOrig = (element as any).disposer;
-    const spy = vi.fn(disposerOrig);
+    const spy = vi.fn<() => void>(disposerOrig);
     (element as any).disposer = spy;
 
     document.body.removeChild(element);

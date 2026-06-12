@@ -1,0 +1,12 @@
+packages:
+  - 'packages/*'
+  - 'examples/*'
+allowBuilds:
+  '@parcel/watcher': false
+catalog:
+  '@microsoft/api-extractor': '^7.58.8'
+overrides:
+  '@microsoft/api-extractor': 'catalog:'
+  ajv: '^8.17.1'
+  lodash: '^4.18.1'
+  minimatch: '^10.2.1'

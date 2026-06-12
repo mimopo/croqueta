@@ -46,19 +46,21 @@ jobs:
         run: |
           BASE_REF=$(gh pr view --json baseRefName --jq '.baseRefName')
           BASE_VERSION=$(git show origin/$BASE_REF:package.json | jq -r .version)
-          npm version $BASE_VERSION --no-commit-hooks --no-git-tag-version --allow-same-version
-          gh pr view --json title --jq '.title' | npm run bump
+          pnpm version $BASE_VERSION --no-commit-hooks --no-git-tag-version --allow-same-version
+          gh pr view --json title --jq '.title' | node scripts/bump.ts
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Build
-        run: | 
-          npm run build -w packages/cli/ 
-          npm run build -w packages/framework/
+        run: |
+          pnpm -C ./packages/cli/ build
+          pnpm -C ./packages/framework/ build
       - name: NPM publish
-        run: npm run release
+        run: |
+          pnpm publish ./dist/cli/ --provenance --access=public --no-git-checks 
+          pnpm publish ./dist/framework/ --provenance --access=public --no-git-checks
       - name: Commit version bump
         run: |
-          git add package.json package-lock.json
+          git add package.json
           git status
           if [ -n "$(git status --porcelain -uno)" ]; then
             git commit -m "chore: version bump [skip ci]"
@@ -73,7 +75,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Release
-        run: npm run gh-release
+        run: pnpm gh-release
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -81,5 +83,6 @@ jobs:
     needs: release
     uses: ./.github/workflows/docs.yml
     permissions:
+      contents: read
       pages: write
       id-token: write

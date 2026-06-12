@@ -19,8 +19,12 @@ describe('resolveData', () => {
   });
 
   test('should resolve data from the route data functions', async () => {
-    const userResolver = vi.fn().mockResolvedValue({ id: 1, name: 'John Doe' });
-    const postsResolver = vi.fn().mockResolvedValue([{ id: 101, title: 'Post 1' }]);
+    const userResolver = vi
+      .fn<(params: RouteParams) => Promise<{ id: number; name: string }>>()
+      .mockResolvedValue({ id: 1, name: 'John Doe' });
+    const postsResolver = vi
+      .fn<(params: RouteParams) => Promise<{ id: number; title: string }[]>>()
+      .mockResolvedValue([{ id: 101, title: 'Post 1' }]);
     const route: Route = {
       path: '/users/:id',
       data: {
@@ -39,7 +43,7 @@ describe('resolveData', () => {
   });
 
   test('should throw an error if any data resolver rejects', async () => {
-    const failingResolver = vi.fn().mockRejectedValue(new Error('Failed to fetch'));
+    const failingResolver = vi.fn<(params: RouteParams) => Promise<never>>().mockRejectedValue(new Error('Failed to fetch'));
     const route: Route = {
       path: '/error',
       data: {

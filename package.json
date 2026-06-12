@@ -1,6 +1,6 @@
 {
   "name": "@mimopo/croqueta-repository",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Hot and tasty frontend framework",
   "keywords": [],
@@ -10,66 +10,54 @@
     "type": "git",
     "url": "git+https://github.com/mimopo/croqueta.git"
   },
-  "bin": {
-    "cocreta": "packages/cli/src/index.ts",
-    "croqueta": "packages/cli/src/index.ts"
-  },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
   "type": "module",
   "scripts": {
-    "test": "npm run test --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present",
-    "release": "npm run release --workspaces --if-present",
+    "test": "pnpm -r --if-present test",
+    "build": "pnpm -r --if-present build",
     "gh-release": "gh release create $npm_package_version --generate-notes",
-    "bump": "node scripts/bump.ts",
     "lint": "oxlint",
     "format": "oxfmt",
-    "examples-router": "npm start -w examples/router",
-    "examples-state": "npm start -w examples/state"
+    "examples-router": "pnpm -C ./examples/router dev",
+    "examples-state": "pnpm -C ./examples/state dev"
   },
   "dependencies": {
+    "@mimopo/croqueta": "workspace:*",
+    "@mimopo/croqueta-cli": "workspace:*",
     "minimist": "^1.2.8",
     "plop": "^4.0.5",
     "signal-polyfill": "^0.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
-    "@microsoft/api-extractor": "^7.58.0",
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@microsoft/api-extractor": "catalog:",
     "@picocss/pico": "^2.1.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/conventional-commits-parser": "^5.0.2",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^24.12.2",
-    "@vitest/coverage-v8": "^4.1.2",
+    "@types/node": "^24.13.2",
+    "@vitest/coverage-v8": "^4.1.8",
     "conventional-commits-parser": "^6.4.0",
-    "jsdom": "^29.0.1",
+    "jsdom": "^29.1.1",
     "lightningcss": "^1.32.0",
-    "marked": "^17.0.5",
-    "oxfmt": "^0.43.0",
-    "oxlint": "^1.58.0",
-    "oxlint-tsgolint": "^0.19.0",
-    "sass-embedded": "^1.99.0",
-    "shiki": "^4.0.2",
-    "typedoc": "^0.28.18",
-    "typescript": "^6.0.2",
-    "unplugin-dts": "^1.0.0-beta.6",
-    "vite": "^8.0.3",
-    "vitest": "^4.1.2"
-  },
-  "overrides": {
-    "@microsoft/api-extractor": "$@microsoft/api-extractor",
-    "ajv": "^8.17.1",
-    "lodash": "^4.18.1",
-    "minimatch": "^10.2.1"
+    "marked": "^18.0.5",
+    "oxfmt": "^0.52.0",
+    "oxlint": "^1.69.0",
+    "oxlint-tsgolint": "^0.23.0",
+    "sass-embedded": "^1.100.0",
+    "shiki": "^4.2.0",
+    "typedoc": "^0.28.19",
+    "typescript": "^6.0.3",
+    "unplugin-dts": "^1.0.2",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
   },
   "engines": {
-    "node": ">= 24.0.0"
+    "node": ">= 24.16.0"
   },
   "volta": {
-    "node": "24.15.0"
-  }
+    "node": "24.16.0",
+    "pnpm": "11.5.2"
+  },
+  "packageManager": "pnpm@11.6.0"
 }

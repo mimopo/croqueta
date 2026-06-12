@@ -2,7 +2,6 @@
 name: croqueta-component
 description: create a component
 compatibility: Requires @mimopo/croqueta-cli, @mimopo/croqueta, node
-
 ---
 
 # component
@@ -52,4 +51,3 @@ npx croqueta component --name=[name] --prefix=[prefix] --tests=[tests] --dry-run
 - **description:** dry run, when true no files will be created
 - **type:** confirm
 - **default value:** true
-

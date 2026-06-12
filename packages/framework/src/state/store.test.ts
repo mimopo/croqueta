@@ -72,7 +72,7 @@ describe('Store', () => {
     const messageSelector = createSelector(featureSelector, (state: TestState) => state.message);
     const message = store.select(messageSelector);
 
-    const spy = vi.fn();
+    const spy = vi.fn<(msg: string) => void>();
     effect(() => spy(message.get()));
     await waitForAsync();
 
@@ -144,7 +144,7 @@ describe('Store', () => {
     // 4. Create a selector that combines data from both features
     const selectViewModel = createSelector(selectCount, selectUser, (count, user) => `User: ${user || 'Guest'}, Count: ${count}`);
 
-    const spy = vi.fn();
+    const spy = vi.fn<(vm: string) => void>();
     effect(() => spy(store.select(selectViewModel).get()));
     await waitForAsync();
 

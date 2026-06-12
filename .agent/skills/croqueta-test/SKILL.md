@@ -2,7 +2,6 @@
 name: croqueta-test
 description: generate a test file for an existing component or service
 compatibility: Requires @mimopo/croqueta-cli, @mimopo/croqueta, node
-
 ---
 
 # test
@@ -34,4 +33,3 @@ npx croqueta test --file=[file]
 
 - **description:** file to be tested
 - **type:** input
-
