@@ -5,7 +5,6 @@ allowBuilds:
   '@parcel/watcher': false
 catalog:
   '@microsoft/api-extractor': '^7.58.8'
-
 overrides:
   '@microsoft/api-extractor': 'catalog:'
   ajv: '^8.17.1'
