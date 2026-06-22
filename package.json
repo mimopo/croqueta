@@ -30,7 +30,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
-    "@microsoft/api-extractor": "catalog:",
+    "@microsoft/api-extractor": "^7.58.8",
     "@picocss/pico": "^2.1.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/conventional-commits-parser": "^5.0.2",
