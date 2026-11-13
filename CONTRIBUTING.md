@@ -93,6 +93,28 @@ This project follows [GitHub Flow](https://docs.github.com/en/get-started/using-
 - All checks must pass before the pull request can be merged.
 - Pull request must be merged by running the [release](.github/workflows/release.yml) workflow.
 
+### Merge and release from the command line
+
+With [GitHub CLI](https://cli.github.com/) installed and authenticated, run the release workflow from the pull request's branch:
+
+```bash
+pr_branch=$(gh pr view --json headRefName --jq '.headRefName') &&
+gh workflow run release.yml --ref "$pr_branch" &&
+gh run watch --exit-status
+```
+
+`gh pr view` selects the pull request associated with your current branch. To select a specific pull request, use `gh pr view <pr_number>` in the first command instead.
+
+Alternatively, specify the branch explicitly:
+
+```bash
+gh workflow run release.yml --ref "<branch_name>" && gh run watch --exit-status
+```
+
+When prompted by `gh run watch`, select the release workflow execution you just started. `--exit-status` returns a non-zero exit code if that execution fails.
+
+The workflow validates the project, bumps its version, builds and publishes the packages, merges the pull request, creates the GitHub release, and deploys the documentation.
+
 ### Commit messages
 
 - You don't need to use a specific convention for commit messages. However, all of them will be squashed into a single commit using the pull request title.
