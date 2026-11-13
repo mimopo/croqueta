@@ -17,8 +17,8 @@
     "gh-release": "gh release create $npm_package_version --generate-notes",
     "lint": "vp lint",
     "format": "vp fmt",
-    "examples-router": "vp run --filter ./examples/router dev",
-    "examples-state": "vp run --filter ./examples/state dev",
+    "examples-router": "node scripts/dev-example.mjs router",
+    "examples-state": "node scripts/dev-example.mjs state",
     "check": "vp check"
   },
   "dependencies": {

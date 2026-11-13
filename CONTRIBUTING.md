@@ -70,6 +70,8 @@ Source code:
 
 The root scripts use Vite Task to orchestrate workspace packages. The framework build uses `vp pack` to produce its JavaScript bundles and TypeScript declarations. Builds enable task caching with `vp run -r --cache build`, including TypeScript checks and generated files. Tests run without task caching. To cache a single package build, use `vp run --cache --filter ./packages/docs build`. The task cache is local; the dependency cache configured in GitHub Actions does not persist task results between workflow runs.
 
+The root `examples-router` and `examples-state` scripts also work in StackBlitz. They start the installed Vite core directly, without loading the native Vite+ CLI or the shared test configuration. StackBlitz links select an example with `startScript=examples-router` or `startScript=examples-state` and select the editor file with `file=examples/<example>/src/main.ts`.
+
 ## Code Style
 
 - The repository uses [Vite+](https://viteplus.dev/) with pnpm for development, builds, tests, linting and formatting.
