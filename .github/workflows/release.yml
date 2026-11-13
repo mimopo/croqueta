@@ -74,7 +74,7 @@ jobs:
           fi
       - name: Merge PR
         id: merge
-        run: bash scripts/merge-pr.sh
+        run: node scripts/merge-pr.ts
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}

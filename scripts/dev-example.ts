@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+
+import pkg from '../package.json' with { type: 'json' };
 
 const example = process.argv[2];
 if (example !== 'router' && example !== 'state') {
@@ -10,8 +11,7 @@ if (example !== 'router' && example !== 'state') {
 const root = new URL('../', import.meta.url);
 if (process.versions.webcontainer) {
   // StackBlitz ships pnpm 8, which cannot resolve the workspace catalogs.
-  const { packageManager } = JSON.parse(readFileSync(new URL('package.json', root), 'utf8'));
-  execFileSync('npx', ['--yes', packageManager, 'install', '--frozen-lockfile'], {
+  execFileSync('npx', ['--yes', pkg.packageManager, 'install', '--frozen-lockfile'], {
     cwd: fileURLToPath(root),
     stdio: 'inherit',
   });

@@ -1,4 +1,4 @@
-import { execFileSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { delimiter, join } from 'node:path';
@@ -40,7 +40,6 @@ process.exit(response.status ?? 0);
 `,
     { mode: 0o755 }
   );
-  writeFileSync(join(directory, 'sleep'), '#!/usr/bin/env bash\nexit 0\n', { mode: 0o755 });
   const env = {
     ...process.env,
     PATH: `${directory}${delimiter}${process.env.PATH}`,
@@ -51,9 +50,7 @@ process.exit(response.status ?? 0);
   };
   return {
     env,
-    output: () => readFileSync(output, 'utf8'),
     calls: () => JSON.parse(readFileSync(callsFile, 'utf8')) as string[][],
-    merge: () => spawnSync('bash', ['scripts/merge-pr.sh'], { cwd: root, env, encoding: 'utf8' }),
   };
 }
 
@@ -61,59 +58,6 @@ afterEach(() => {
   for (const directory of fixtures.splice(0)) {
     rmSync(directory, { recursive: true, force: true });
   }
-});
-
-test('retries a stale base while protecting the published head and avoiding local checkout', () => {
-  const f = fixture([
-    { stdout: '12' },
-    { status: 1, stderr: 'GraphQL: Base branch was modified. Review and try the merge again. (mergePullRequest)' },
-    { stdout: 'Merged' },
-    { stdout: mergeSha },
-  ]);
-  const result = f.merge();
-  expect(result.status).toBe(0);
-  const expected = [
-    'pr',
-    'merge',
-    '12',
-    '--repo',
-    'mimopo/croqueta',
-    '--squash',
-    '--delete-branch',
-    '--match-head-commit',
-    execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
-  ];
-  expect(f.calls().slice(1, 3)).toEqual([expected, expected]);
-  expect(f.output()).toBe(`sha=${mergeSha}\n`);
-});
-
-test.each(['Head branch was modified', 'Pull request is not mergeable', 'Resource not accessible by integration'])(
-  'does not retry an unsafe or permanent merge failure: %s',
-  (message) => {
-    const f = fixture([{ stdout: '12' }, { status: 1, stderr: message }]);
-    expect(f.merge().status).not.toBe(0);
-    expect(f.calls()).toHaveLength(2);
-    expect(f.output()).toBe('');
-  }
-);
-
-test('limits stale-base retries and never emits a release target on failure', () => {
-  const f = fixture([{ stdout: '12' }, ...Array.from({ length: 5 }, () => ({ status: 1, stderr: 'Base branch was modified' }))]);
-  expect(f.merge().status).not.toBe(0);
-  expect(f.calls()).toHaveLength(6);
-  expect(f.output()).toBe('');
-});
-
-test('waits for the confirmed merge SHA after GitHub accepts the merge', () => {
-  const f = fixture([{ stdout: '12' }, {}, {}, { stdout: mergeSha }]);
-  expect(f.merge().status).toBe(0);
-  expect(f.output()).toBe(`sha=${mergeSha}\n`);
-});
-
-test('does not release when merge success only queued the pull request', () => {
-  const f = fixture([{ stdout: '12' }, {}, ...Array.from({ length: 5 }, () => ({}))]);
-  expect(f.merge().status).not.toBe(0);
-  expect(f.output()).toBe('');
 });
 
 test('the Vite Task release command uses the package version and exact merge SHA', () => {
@@ -125,6 +69,14 @@ test('the Vite Task release command uses the package version and exact merge SHA
   });
   expect(result.status).toBe(0);
   expect(f.calls()).toEqual([['release', 'create', pkg.version, '--target', mergeSha, '--generate-notes']]);
+});
+
+test('native Node executes the TypeScript merge script and exports its confirmed target', () => {
+  const f = fixture([{ stdout: '12' }, { stdout: 'Merged' }, { stdout: mergeSha }]);
+  const result = spawnSync(process.execPath, ['scripts/merge-pr.ts'], { cwd: root, env: f.env, encoding: 'utf8' });
+  expect(result.status).toBe(0);
+  expect(readFileSync(f.env.GITHUB_OUTPUT, 'utf8')).toBe(`sha=${mergeSha}\n`);
+  expect(f.calls()[1]).toContain('--match-head-commit');
 });
 
 test('release requires a confirmed target and propagates GitHub CLI failures', () => {

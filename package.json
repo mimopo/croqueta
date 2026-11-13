@@ -12,13 +12,13 @@
   },
   "type": "module",
   "scripts": {
-    "test": "vp test run scripts && vp run -r test",
+    "test": "tsc -p scripts/tsconfig.json && vp test run scripts && vp run -r test",
     "build": "vp run -r --cache build",
     "gh-release": "node scripts/release.ts",
     "lint": "vp lint",
     "format": "vp fmt",
-    "examples-router": "node scripts/dev-example.mjs router",
-    "examples-state": "node scripts/dev-example.mjs state",
+    "examples-router": "node scripts/dev-example.ts router",
+    "examples-state": "node scripts/dev-example.ts state",
     "check": "vp check"
   },
   "dependencies": {
