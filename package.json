@@ -12,13 +12,13 @@
   },
   "type": "module",
   "scripts": {
-    "test": "pnpm -r --if-present test",
-    "build": "pnpm -r --if-present build",
+    "test": "vp run -r test",
+    "build": "vp run -r --cache build",
     "gh-release": "gh release create $npm_package_version --generate-notes",
     "lint": "vp lint",
     "format": "vp fmt",
-    "examples-router": "pnpm -C ./examples/router dev",
-    "examples-state": "pnpm -C ./examples/state dev",
+    "examples-router": "vp run --filter ./examples/router dev",
+    "examples-state": "vp run --filter ./examples/state dev",
     "check": "vp check"
   },
   "dependencies": {
