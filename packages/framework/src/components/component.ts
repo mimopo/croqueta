@@ -88,7 +88,9 @@ export abstract class Component extends HTMLElement {
     const s = signal(value);
     Object.defineProperty(this, propName, {
       get: () => s.get(),
-      set: (v: T) => s.set(v),
+      set: (v: T) => {
+        s.set(v);
+      },
       enumerable: true,
       configurable: true,
     });

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vite-plus/test';
 
 import { destroyAllInjectors, destroyInjector, inject, injectionToken, injector, provide } from './functions';
 import type { Destroy } from './types';

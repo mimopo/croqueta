@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vite-plus/test';
 
 import type { Route, RouteParams } from '../types';
 import { resolveData } from './resolve-data';

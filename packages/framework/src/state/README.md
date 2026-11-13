@@ -162,6 +162,7 @@ Features are usually registered at the application level or within a specific se
 
 ```typescript
 import { Store, inject } from '@mimopo/croqueta';
+
 import { counterFeature } from './counter.feature';
 
 const store = inject(Store);

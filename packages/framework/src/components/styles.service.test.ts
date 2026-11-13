@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test } from 'vite-plus/test';
 
 import { clear, enableShadowDom } from '../components-testing';
 import { StylesService } from './styles.service';

@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "test": "vitest run --passWithNoTests"
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "test": "vp test run --passWithNoTests"
   }
 }

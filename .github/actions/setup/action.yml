@@ -1,13 +1,12 @@
 name: Setup Project
-description: Setup Node.js and install dependencies
+description: Set up Vite+, Node.js and pnpm, and install dependencies
 runs:
   using: 'composite'
   steps:
-    - uses: pnpm/action-setup@v6
+    - uses: voidzero-dev/setup-vp@v1.22.0
       with:
+        version-file: 'pnpm-workspace.yaml'
+        node-version-file: '.node-version'
         cache: true
-    - uses: actions/setup-node@v6
-      with:
-        node-version-file: 'package.json'
-    - run: pnpm install --frozen-lockfile
-      shell: bash
+        run-install: |
+          args: ['--frozen-lockfile']

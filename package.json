@@ -1,6 +1,6 @@
 {
   "name": "@mimopo/croqueta-repository",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Hot and tasty frontend framework",
   "keywords": [],
@@ -12,13 +12,14 @@
   },
   "type": "module",
   "scripts": {
-    "test": "pnpm -r --if-present test",
-    "build": "pnpm -r --if-present build",
+    "test": "vp run -r test",
+    "build": "vp run -r --cache build",
     "gh-release": "gh release create $npm_package_version --generate-notes",
-    "lint": "oxlint",
-    "format": "oxfmt",
-    "examples-router": "pnpm -C ./examples/router dev",
-    "examples-state": "pnpm -C ./examples/state dev"
+    "lint": "vp lint",
+    "format": "vp fmt",
+    "examples-router": "node scripts/dev-example.mjs router",
+    "examples-state": "node scripts/dev-example.mjs state",
+    "check": "vp check"
   },
   "dependencies": {
     "@mimopo/croqueta": "workspace:*",
@@ -28,36 +29,28 @@
     "signal-polyfill": "^0.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.2",
-    "@commitlint/config-conventional": "^21.0.2",
-    "@microsoft/api-extractor": "^7.58.8",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "@picocss/pico": "^2.1.1",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@types/conventional-commits-parser": "^5.0.2",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^24.13.2",
-    "@vitest/coverage-v8": "^4.1.8",
-    "conventional-commits-parser": "^6.4.0",
-    "jsdom": "^29.1.1",
-    "lightningcss": "^1.32.0",
-    "marked": "^18.0.5",
-    "oxfmt": "^0.52.0",
-    "oxlint": "^1.69.0",
-    "oxlint-tsgolint": "^0.23.0",
-    "sass-embedded": "^1.100.0",
-    "shiki": "^4.2.0",
-    "typedoc": "^0.28.19",
-    "typescript": "^6.0.3",
-    "unplugin-dts": "^1.0.2",
-    "vite": "^8.0.16",
-    "vitest": "^4.1.8"
+    "@types/node": "^24.19.2",
+    "@vitest/coverage-v8": "catalog:",
+    "conventional-commits-parser": "^7.1.4",
+    "jsdom": "^31.0.0",
+    "lightningcss": "^1.33.0",
+    "marked": "^18.2.0",
+    "sass-embedded": "^1.108.2",
+    "shiki": "^4.6.0",
+    "typedoc": "^0.28.20",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   },
   "engines": {
     "node": ">= 24.16.0"
   },
-  "volta": {
-    "node": "24.16.0",
-    "pnpm": "11.5.2"
-  },
-  "packageManager": "pnpm@11.6.0"
+  "packageManager": "pnpm@11.28.11"
 }

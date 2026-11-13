@@ -1,6 +1,6 @@
 # Contributing
 
-This is a monorepo based on NPM Workspaces for Croqueta Framework development.
+This is a monorepo based on Vite+ for Croqueta Framework development.
 
 ## Structure
 
@@ -47,23 +47,36 @@ Source code:
 
 ## Local Environment Setup
 
-- Install Node and PNPM versions indicated on the project's [package.json](./package.json) file.
-- Install dependencies using `pnpm install`.
+- Install the [Vite+ global CLI](https://viteplus.dev/guide/global-cli#install) and open a new terminal.
+- Run `vp env install` from the repository root to install the pinned Node.js and pnpm versions.
+- Install dependencies using `vp install`.
 
 > [!TIP]
-> The project comes already configured for [Volta](https://volta.sh/) version manager, which automatically uses the correct Node and PNPM versions for you.
+> Vite+ reads Node.js from `.node-version` and uses pnpm as declared in `package.json#packageManager`. Package operations go through `vp`; pnpm remains the underlying package manager.
 
 ## Common Tasks
 
-- Install dependencies: `pnpm install`
-- Run tests: `pnpm test`
-- Build the project: `pnpm build`
-- Start development server: `pnpm -C ./project/path dev`
+- Install dependencies: `vp install`
+- Add a dependency to a package: `vp add --filter ./packages/framework <package>`
+- Add a development dependency at the workspace root: `vp add -D -w <package>`
+- Remove a dependency: `vp remove --filter ./packages/framework <package>`
+- Check formatting, lint and types: `vp check`
+- Format code: `vp fmt`
+- Run tests: `vp run test`
+- Build the project: `vp run build`
+- Start development server: `vp run --filter ./project/path dev`
+
+`vp run test` and `vp run build` execute the root scripts across the workspace. Built-in `vp test` and `vp build` run the tool directly and do not execute those scripts.
+
+The root scripts use Vite Task to orchestrate workspace packages. The framework build uses `vp pack` to produce its JavaScript bundles and TypeScript declarations. Builds enable task caching with `vp run -r --cache build`, including TypeScript checks and generated files. Tests run without task caching. To cache a single package build, use `vp run --cache --filter ./packages/docs build`. The task cache is local; the dependency cache configured in GitHub Actions does not persist task results between workflow runs.
+
+The root `examples-router` and `examples-state` scripts also work in StackBlitz. In WebContainers, they first install dependencies with the pinned pnpm version because the preinstalled pnpm does not support workspace catalogs. `.stackblitzrc` disables the incompatible automatic installation. The scripts start the installed Vite core directly, without loading the native Vite+ CLI or the shared test configuration. StackBlitz links select an example with `startScript=examples-router` or `startScript=examples-state` and select the editor file with `file=examples/<example>/src/main.ts`.
 
 ## Code Style
 
-- All the code must be formatted using [oxfmt](https://www.npmjs.com/package/oxfmt).
-- All the code must pass the [oxlint](https://www.npmjs.com/package/oxlint) checks.
+- The repository uses [Vite+](https://viteplus.dev/) with pnpm for development, builds, tests, linting and formatting.
+- All the code must be formatted using Oxfmt through `vp fmt`.
+- All the code must pass the Oxlint checks through `vp lint`.
 - Use strong typing whenever possible.
 - Always write unit tests for any contribution.
 - Document public API with [TSDoc](https://tsdoc.org/) comments, including classes, interfaces, methods and public fields.
@@ -91,4 +104,4 @@ This project follows [GitHub Flow](https://docs.github.com/en/get-started/using-
 - Avoid using HTML tags.
 - Documentation site is compiled using a custom [Vite](https://vitejs.dev/) plugin and published on [GitHub Pages](https://pages.github.com/).
 - Diagrams must be created using [draw.io](https://www.drawio.com/) and stored as `.drawio.svg` files.
-- Run the documentation site locally with `pnpm -C ./packages/docs dev`.
+- Run the documentation site locally with `vp run --filter ./packages/docs dev`.

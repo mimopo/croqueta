@@ -52,8 +52,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Build
         run: |
-          pnpm -C ./packages/cli/ build
-          pnpm -C ./packages/framework/ build
+          vp run --filter ./packages/cli build
+          vp run --filter ./packages/framework build
       - name: NPM publish
         run: |
           pnpm publish ./dist/cli/ --provenance --access=public --no-git-checks 
@@ -75,7 +75,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Release
-        run: pnpm gh-release
+        run: vp run gh-release
         env:
           GH_TOKEN: ${{ github.token }}
 

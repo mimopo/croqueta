@@ -1,8 +1,7 @@
 import { readFileSync } from 'node:fs';
 
-import { assetsPlugin, copyPackagePlugin } from '@mimopo/vite-plugins';
-import dts from 'unplugin-dts/vite';
-import { defineConfig } from 'vitest/config';
+import { copyPackage } from '@mimopo/vite-plugins';
+import { defineConfig } from 'vite-plus';
 
 import { viteBaseConfig } from '../../vite.base-config';
 
@@ -27,46 +26,35 @@ for (const key in packageJson.exports) {
 
 export default defineConfig({
   ...viteBaseConfig,
-  plugins: [
-    dts({
-      bundleTypes: true,
-      tsconfigPath: './tsconfig.json',
-      compilerOptions: {
-        rootDir: './src',
-      },
-    }),
-    copyPackagePlugin({
-      override: {
-        private: false,
-        module: './index.mjs',
-        typings: './index.d.ts',
-        exports,
-      },
-    }),
-    assetsPlugin({
-      files: ['README.md'],
-    }),
-  ],
-  build: {
-    emptyOutDir: true,
+  pack: {
+    entry,
     outDir: '../../dist/framework',
-    lib: {
-      entry,
-      formats: ['es'],
+    clean: true,
+    format: ['esm'],
+    platform: 'browser',
+    target: 'baseline-widely-available',
+    dts: true,
+    sourcemap: true,
+    minify: true,
+    outExtensions: () => ({ js: '.mjs', dts: '.d.ts' }),
+    deps: {
+      alwaysBundle: ['signal-polyfill'],
+      onlyBundle: ['signal-polyfill'],
+      dts: { neverBundle: ['signal-polyfill'] },
     },
-    rolldownOptions: {
-      external: [],
-      output: {
-        entryFileNames: '[name].mjs',
-        chunkFileNames: '[name].mjs',
-        assetFileNames: '[name].[ext]',
-        sourcemapPathTransform: (relativeSourcePath) => {
-          return relativeSourcePath.replace(/^.*src\//, 'mimopo/croqueta/');
-        },
+    copy: ['README.md'],
+    hooks: {
+      'build:done': ({ options }) => {
+        copyPackage('package.json', `${options.outDir}/package.json`, {
+          private: false,
+          module: './index.mjs',
+          typings: './index.d.ts',
+          exports,
+        });
       },
     },
-    target: 'baseline-widely-available',
-    sourcemap: true,
-    minify: 'oxc',
+    outputOptions: {
+      sourcemapPathTransform: (relativeSourcePath) => relativeSourcePath.replace(/^.*src\//, 'mimopo/croqueta/'),
+    },
   },
 });

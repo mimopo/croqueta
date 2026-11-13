@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vite-plus/test';
 
 import { Component, StylesService, html } from '../../components';
 import { clear, waitForAsync } from '../../components-testing';

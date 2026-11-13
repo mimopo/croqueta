@@ -1,7 +1,7 @@
 import { globSync } from 'node:fs';
 
 import { assetsPlugin, docsPlugin } from '@mimopo/vite-plugins';
-import { defineConfig } from 'vite';
+import { defineConfig, lazyPlugins } from 'vite-plus';
 
 import { viteBaseConfig } from '../../vite.base-config';
 
@@ -11,10 +11,10 @@ const markdownFiles = [`${rootDir}README.md`, ...globSync('../framework/**/*.md'
 export default defineConfig({
   ...viteBaseConfig,
   base: '/croqueta',
-  plugins: [
+  plugins: lazyPlugins(() => [
     docsPlugin({ layout: 'layout.html', theme: 'github-dark', repository: 'mimopo/croqueta', nav: 'nav.json' }),
     assetsPlugin({ files: [{ input: '../../croqueta.webp', output: 'docs/croqueta.webp' }] }),
-  ],
+  ]),
   css: {
     preprocessorOptions: {
       scss: {

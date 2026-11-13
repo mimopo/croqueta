@@ -27,3 +27,4 @@ coverage
 
 # Developer files
 TODO.md
+.vitest/

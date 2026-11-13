@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build"
+    "dev": "vp dev",
+    "build": "tsc && vp build"
   },
   "devDependencies": {
     "@mimopo/vite-plugins": "workspace:*"
