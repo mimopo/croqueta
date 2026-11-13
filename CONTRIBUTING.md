@@ -68,7 +68,7 @@ Source code:
 
 `vp run test` and `vp run build` execute the root scripts across the workspace. Built-in `vp test` and `vp build` run the tool directly and do not execute those scripts.
 
-The root scripts use Vite Task to orchestrate workspace packages. Builds enable task caching with `vp run -r --cache build`, including TypeScript checks and generated files. Tests run without task caching. To cache a single package build, use `vp run --cache --filter ./packages/docs build`. The task cache is local; the dependency cache configured in GitHub Actions does not persist task results between workflow runs.
+The root scripts use Vite Task to orchestrate workspace packages. The framework build uses `vp pack` to produce its JavaScript bundles and TypeScript declarations. Builds enable task caching with `vp run -r --cache build`, including TypeScript checks and generated files. Tests run without task caching. To cache a single package build, use `vp run --cache --filter ./packages/docs build`. The task cache is local; the dependency cache configured in GitHub Actions does not persist task results between workflow runs.
 
 ## Code Style
 

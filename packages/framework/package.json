@@ -11,7 +11,7 @@
     "./testing": "./src/testing.ts"
   },
   "scripts": {
-    "build": "tsc && vp build",
+    "build": "tsc && vp pack",
     "test": "vp test run"
   },
   "dependencies": {
