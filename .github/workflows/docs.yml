@@ -2,7 +2,9 @@ name: Deploy Docs
 
 on:
   workflow_dispatch:
-  workflow_call:
+  workflow_run:
+    workflows: ['Release']
+    types: [completed]
 
 permissions:
   contents: read
@@ -15,6 +17,10 @@ concurrency:
 
 jobs:
   deploy:
+    # workflow_run uses the default branch rather than the release PR branch.
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
