@@ -1,6 +1,6 @@
 # Contributing
 
-This is a monorepo based on pnpm workspaces for Croqueta Framework development.
+This is a monorepo based on Vite+ for Croqueta Framework development.
 
 ## Structure
 
