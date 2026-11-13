@@ -1,3 +1,15 @@
+/**
+ * Merge the current release pull request and export its confirmed merge commit for release creation.
+ *
+ * Usage: node scripts/merge-pr.ts
+ * Run from the repository root on the release branch after publishing packages and
+ * committing/pushing the version bump. Requires authenticated gh, GH_REPO in owner/name
+ * format, and GITHUB_OUTPUT pointing to the GitHub Actions step-output file.
+ *
+ * Pins the merge to the published local HEAD, retries transient base-branch changes,
+ * and deletes the merged branch without changing the local checkout. Writes
+ * sha=<merge_commit> to GITHUB_OUTPUT only after GitHub confirms the PR is merged.
+ */
 import { execFileSync } from 'node:child_process';
 import { appendFileSync } from 'node:fs';
 import { setTimeout } from 'node:timers/promises';
@@ -9,6 +21,7 @@ if (!repository || !output) {
 }
 
 const prNumber = execFileSync('gh', ['pr', 'view', '--json', 'number', '--jq', '.number'], { encoding: 'utf8' }).trim();
+// Keep this commit fixed across retries: a newer PR head has not been published by this run.
 const publishedHead = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 
 for (let attempt = 1; attempt <= 5; attempt++) {
@@ -32,6 +45,7 @@ for (let attempt = 1; attempt <= 5; attempt++) {
   }
 }
 
+// A successful merge command may only enqueue a PR; release creation needs the actual merge commit.
 let mergeSha = '';
 for (let attempt = 1; attempt <= 5; attempt++) {
   mergeSha = execFileSync(
@@ -56,4 +70,5 @@ for (let attempt = 1; attempt <= 5; attempt++) {
 if (!mergeSha) {
   throw new Error('The pull request has no confirmed merge commit; refusing to create a release.');
 }
+// Appending preserves any other outputs already written by this GitHub Actions step.
 appendFileSync(output, `sha=${mergeSha}\n`);

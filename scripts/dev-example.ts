@@ -1,3 +1,16 @@
+/**
+ * Start the router or state example using the installed Vite core.
+ *
+ * Usage (from the repository root, with Node 24):
+ *   node scripts/dev-example.ts router
+ *   node scripts/dev-example.ts state
+ *   pnpm run examples-router
+ *   pnpm run examples-state
+ *
+ * In StackBlitz WebContainers, first install dependencies with the project's pinned
+ * pnpm version. Then start Vite without the native Vite+ CLI or shared test config.
+ * The existing examples-* script names are used by documentation links via startScript.
+ */
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -22,6 +35,7 @@ if (process.versions.webcontainer) {
 const { createServer } = await import('vite');
 const server = await createServer({
   root: fileURLToPath(new URL(`../examples/${example}/`, import.meta.url)),
+  // Loading the normal config would import Vite+ and the shared test setup.
   configFile: false,
   server: { host: true },
 });

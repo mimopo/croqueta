@@ -1,3 +1,10 @@
+/**
+ * Verify semantic-version selection and error handling for the version-bump script.
+ *
+ * Usage: pnpm exec vp test run scripts/bump.test.ts
+ * Tests the real Conventional Commit parser while mocking stdin and the pnpm command,
+ * so patch/minor/major decisions can be checked without changing the project version.
+ */
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 

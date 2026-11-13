@@ -1,3 +1,11 @@
+/**
+ * Verify native Node/Vite Task execution and the release command's version, target, and failures.
+ *
+ * Usage: pnpm exec vp test run scripts/release.test.ts
+ * Runs the actual script entry points with a temporary fake gh executable on PATH.
+ * The fake records command arguments and returns controlled responses; no real PRs
+ * are merged or releases published. Temporary fixtures are removed after each test.
+ */
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -14,6 +22,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const mergeSha = 'a'.repeat(40);
 const fixtures: string[] = [];
 
+// Put a response-driven fake gh first on PATH so child processes cannot call the real GitHub CLI.
 function fixture(responses: GhResponse[]) {
   const directory = mkdtempSync(join(tmpdir(), 'croqueta-release-'));
   fixtures.push(directory);

@@ -1,3 +1,11 @@
+/**
+ * Verify example selection, WebContainer dependency installation, and development-server startup.
+ *
+ * Usage: pnpm exec vp test run scripts/dev-example.test.ts
+ * Mocks Vite and child processes so tests can check installation order and failures
+ * without downloading dependencies or opening a server. Restores process arguments
+ * and WebContainer detection after each test.
+ */
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 

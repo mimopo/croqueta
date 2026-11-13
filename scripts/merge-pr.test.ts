@@ -1,3 +1,10 @@
+/**
+ * Verify the release merge's retry policy, published-head protection, and merge-SHA output.
+ *
+ * Usage: pnpm exec vp test run scripts/merge-pr.test.ts
+ * Mocks GitHub CLI commands, output-file writes, and retry delays to exercise transient
+ * failures, permanent failures, and delayed merge confirmation without touching GitHub.
+ */
 import { execFileSync } from 'node:child_process';
 import { appendFileSync } from 'node:fs';
 import { setTimeout } from 'node:timers/promises';
