@@ -113,7 +113,15 @@ gh workflow run release.yml --ref "<branch_name>" && gh run watch --exit-status
 
 When prompted by `gh run watch`, select the release workflow execution you just started. `--exit-status` returns a non-zero exit code if that execution fails.
 
-The workflow validates the project, bumps its version, builds and publishes the packages, merges the pull request, creates the GitHub release, and deploys the documentation.
+The workflow validates the project, bumps its version, builds and publishes the packages, merges the pull request, and creates the GitHub release. After it succeeds, the separate **Deploy Docs** workflow automatically builds and deploys the documentation from `main`, as required by the GitHub Pages environment protection rules. Monitor that execution separately in GitHub Actions.
+
+To retry only the documentation deployment, without repeating the version bump, package publication, or merge, run:
+
+```bash
+gh workflow run docs.yml --ref main && gh run watch --exit-status
+```
+
+When prompted, select the **Deploy Docs** execution you just started.
 
 ### Commit messages
 
