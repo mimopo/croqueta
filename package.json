@@ -12,7 +12,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "vp run -r test",
+    "test": "vp test run scripts && vp run -r test",
     "build": "vp run -r --cache build",
     "gh-release": "node scripts/release.ts",
     "lint": "vp lint",

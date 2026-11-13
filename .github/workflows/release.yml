@@ -2,6 +2,10 @@ name: Release
 
 on: workflow_dispatch
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 permissions:
   contents: write
   pull-requests: write
@@ -69,15 +73,16 @@ jobs:
             echo "No changes to commit"
           fi
       - name: Merge PR
-        run: |
-          PR_NUMBER=$(gh pr view --json number --jq '.number')
-          gh pr merge $PR_NUMBER --squash --delete-branch
+        id: merge
+        run: bash scripts/merge-pr.sh
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
       - name: Release
-        run: vp run gh-release
+        run: vp run gh-release "$RELEASE_TARGET"
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TARGET: ${{ steps.merge.outputs.sha }}
 
   docs:
     needs: release
