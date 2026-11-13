@@ -14,7 +14,7 @@
   "scripts": {
     "test": "vp run -r test",
     "build": "vp run -r --cache build",
-    "gh-release": "gh release create $npm_package_version --generate-notes",
+    "gh-release": "node scripts/release.ts",
     "lint": "vp lint",
     "format": "vp fmt",
     "examples-router": "node scripts/dev-example.mjs router",
