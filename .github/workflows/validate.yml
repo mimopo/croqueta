@@ -16,9 +16,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "$PR_TITLE" | npx commitlint
+            echo "$PR_TITLE" | pnpm exec commitlint
           else
-            gh pr view --json title --jq '.title' | npx commitlint
+            gh pr view --json title --jq '.title' | pnpm exec commitlint
           fi
 
   lint:
@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
-      - run: pnpm lint
+      - run: pnpm check
 
   test:
     name: Test

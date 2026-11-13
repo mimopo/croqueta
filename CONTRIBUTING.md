@@ -51,19 +51,22 @@ Source code:
 - Install dependencies using `pnpm install`.
 
 > [!TIP]
-> The project comes already configured for [Volta](https://volta.sh/) version manager, which automatically uses the correct Node and PNPM versions for you.
+> Use the Node.js version in `.node-version` and the pnpm version pinned in `package.json#packageManager`.
 
 ## Common Tasks
 
 - Install dependencies: `pnpm install`
+- Check formatting, lint and types: `pnpm check`
+- Format code: `pnpm format`
 - Run tests: `pnpm test`
 - Build the project: `pnpm build`
 - Start development server: `pnpm -C ./project/path dev`
 
 ## Code Style
 
-- All the code must be formatted using [oxfmt](https://www.npmjs.com/package/oxfmt).
-- All the code must pass the [oxlint](https://www.npmjs.com/package/oxlint) checks.
+- The repository uses [Vite+](https://viteplus.dev/) with pnpm for development, builds, tests, linting and formatting.
+- All the code must be formatted using Oxfmt through `pnpm format`.
+- All the code must pass the Oxlint checks through `pnpm lint`.
 - Use strong typing whenever possible.
 - Always write unit tests for any contribution.
 - Document public API with [TSDoc](https://tsdoc.org/) comments, including classes, interfaces, methods and public fields.

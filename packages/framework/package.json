@@ -11,8 +11,8 @@
     "./testing": "./src/testing.ts"
   },
   "scripts": {
-    "build": "tsc && vite build",
-    "test": "vitest run"
+    "build": "tsc && vp build",
+    "test": "vp test run"
   },
   "dependencies": {
     "signal-polyfill": "*"

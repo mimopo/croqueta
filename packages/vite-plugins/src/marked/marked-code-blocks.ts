@@ -1,16 +1,15 @@
-import { readFileSync } from 'node:fs';
 import { stripTypeScriptTypes } from 'node:module';
-import { join } from 'node:path';
 
 import type { MarkedExtension, Tokens } from 'marked';
-import { format } from 'oxfmt';
 import { codeToHtml } from 'shiki';
+import { format } from 'vite-plus/fmt';
 
 interface PluginOptions {
   theme: string;
 }
 
-const oxfmtConfig = JSON.parse(readFileSync(join(import.meta.dirname, '../../../../.oxfmtrc.json'), 'utf-8'));
+// oxlint-disable-next-line no-restricted-imports
+import config from '../../../../vite.config.ts';
 
 async function convertCodeBlockSimple(token: Tokens.Code | Tokens.Generic, theme: string): Promise<string> {
   const html = await codeToHtml(token.text, { lang: token.lang || 'text', theme });
@@ -29,7 +28,7 @@ async function convertCodeBlock(token: Tokens.Code | Tokens.Generic, theme: stri
 
   try {
     // Strip types natively and format with oxfmt
-    const jsCode = await format('example.js', stripTypeScriptTypes(token.text).trim(), oxfmtConfig);
+    const jsCode = await format('example.js', stripTypeScriptTypes(token.text).trim(), config.fmt);
     if (jsCode.errors.length > 0) {
       throw new Error('Failed to strip types');
     }

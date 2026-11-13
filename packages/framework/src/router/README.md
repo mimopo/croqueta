@@ -8,8 +8,9 @@ To use the router, you need to configure it during your application initializati
 
 ```typescript
 import { provideRouter, HashRouterStrategy, type Route } from '@mimopo/croqueta';
-import { HomeComponent } from './home.component';
+
 import { AboutComponent } from './about.component';
+import { HomeComponent } from './home.component';
 
 const routes: Route[] = [
   { path: '/', component: HomeComponent },

@@ -8,6 +8,7 @@
     ".": "./src/index.ts"
   },
   "devDependencies": {
-    "vite": "^8.0.0"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   }
 }

@@ -2,8 +2,7 @@ import { globSync } from 'node:fs';
 import { builtinModules } from 'node:module';
 
 import { assetsPlugin, copyPackagePlugin } from '@mimopo/vite-plugins';
-import type { PluginOption } from 'vite';
-import { defineConfig } from 'vitest/config';
+import { type PluginOption, defineConfig, lazyPlugins } from 'vite-plus';
 
 import { viteBaseConfig } from '../../vite.base-config';
 import pkg from './package.json';
@@ -15,7 +14,7 @@ const hbsFiles = globSync('src/generators/**/*.hbs').map((file) => ({
 
 export default defineConfig({
   ...viteBaseConfig,
-  plugins: [
+  plugins: lazyPlugins(() => [
     copyPackagePlugin({
       override: {
         private: false,
@@ -42,7 +41,7 @@ export default defineConfig({
         return code.replace(/import\s+(.*?)\s+from\s+(['"]\.\/package\.json['"])/g, 'import $1 from $2 with { type: "json" }');
       },
     } as PluginOption,
-  ],
+  ]),
   build: {
     emptyOutDir: true,
     outDir: '../../dist/cli',

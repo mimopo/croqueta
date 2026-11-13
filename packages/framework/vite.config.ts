@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 
 import { assetsPlugin, copyPackagePlugin } from '@mimopo/vite-plugins';
 import dts from 'unplugin-dts/vite';
-import { defineConfig } from 'vitest/config';
+import { defineConfig, lazyPlugins } from 'vite-plus';
 
 import { viteBaseConfig } from '../../vite.base-config';
 
@@ -27,7 +27,7 @@ for (const key in packageJson.exports) {
 
 export default defineConfig({
   ...viteBaseConfig,
-  plugins: [
+  plugins: lazyPlugins(() => [
     dts({
       bundleTypes: true,
       tsconfigPath: './tsconfig.json',
@@ -46,7 +46,7 @@ export default defineConfig({
     assetsPlugin({
       files: ['README.md'],
     }),
-  ],
+  ]),
   build: {
     emptyOutDir: true,
     outDir: '../../dist/framework',
