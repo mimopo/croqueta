@@ -15,17 +15,17 @@ React is a UI library, so its benchmark row must name the router, build tool, fo
 | Component model | Included: native Custom Elements and `Component` | Included: component-based templates | Included: components | Included: function components |
 | Reactive state | Included: signals | Included: reactivity system | Included: Signals | Included: state/hooks; broader model depends on stack |
 | Dependency injection | Included | Optional / ecosystem choice | Included | Optional / ecosystem choice |
-| Client-side routing | Included: Croqueta Router | Optional: Vue Router | Included: Angular Router | Optional: choose and name a router |
-| Shared state | Included: Croqueta State | Optional: store solution | Optional: Signals or store library | Optional: Context or a store library |
-| Forms and validation | To verify | To verify chosen setup | Included forms APIs; validation strategy to document | To verify chosen setup |
-| Lazy loading | Included: router supports lazy loading | To verify chosen setup | Included in router/toolchain | To verify chosen setup |
-| SSR / static generation | To verify | Available in ecosystem; name setup | Supported by Angular toolchain | Depends on chosen framework/toolchain |
+| Client-side routing | Included: Croqueta Router | Official Vue Router; used in app | Included: Angular Router | External React Router; used in app |
+| Shared state | Included: Croqueta Store | Pinia (external; selected for app) | NgRx Store (external; selected for app); Angular Signals remain available for local state | Redux Toolkit + React Redux (external; selected for app) |
+| Forms and validation | No form package; shared native HTML validation in benchmark | No form package; shared native HTML validation in benchmark | Angular has Forms APIs; shared native HTML validation used in benchmark | No form package; shared native HTML validation in benchmark |
+| Lazy loading | Included: router supports lazy loading | Supported by Vue Router | Supported by Angular Router | Supported by React Router |
+| SSR / static generation | Not part of this client-rendered benchmark; audit separately | Not part of this client-rendered benchmark; audit separately | Not part of this client-rendered benchmark; audit separately | Not part of this client-rendered benchmark; audit separately |
 | Web Components interoperability | Native Custom Elements | To verify | To verify | To verify |
-| Build tooling | Vite-based repo; app setup to document | Name and pin | Angular CLI | Name and pin |
-| Testing | Vitest in this repository | Name and pin | Name and pin | Name and pin |
+| Build tooling | Vite 8.3.8; source aliased to `packages/framework/src` | Vite 8.3.8 | Angular CLI/build 22.2.7 | Vite 8.3.8 |
+| Testing | Vitest in repository; common Playwright runner | Common Playwright runner | Common Playwright runner | Common Playwright runner |
 | Bundle and browser performance | Measure with shared benchmark | Measure with shared benchmark | Measure with shared benchmark | Measure with shared benchmark |
 
-Croqueta entries reflect this repository's README and examples. Mark a capability **Included** only when it is part of the core or documented official tooling; a third-party package belongs under **Optional**. Replace each “To verify” with an audited answer or “not provided” before treating the table as complete.
+Croqueta entries reflect this repository's README and examples. The selected app stack uses Vue Router and Pinia for Vue, Angular Router and NgRx Store for Angular, and React Router plus Redux Toolkit/React Redux for React. Those packages are reported separately from each framework's core and included in stack-level size measurements. Angular provides built-in signals for local reactive state; NgRx Store is the selected external global store. Replace each “To verify” with an audited answer or “not provided” before treating the table as complete.
 
 ## Benchmark application
 
@@ -36,7 +36,7 @@ Build the same small product catalog for each stack, with identical behavior, vi
 - Deterministic local datasets of 100, 1,000 and 10,000 records.
 - The same browser, viewport and production build conditions.
 
-The shared application contract is documented in [`spec.md`](https://github.com/mimopo/croqueta/blob/main/benchmarks/framework-comparison/spec.md); all four implementations should use the same product fixture from [`products.mjs`](https://github.com/mimopo/croqueta/blob/main/benchmarks/framework-comparison/products.mjs). The companion harness in [`benchmarks/framework-comparison`](https://github.com/mimopo/croqueta/tree/main/benchmarks/framework-comparison) measures browser resource transfers and navigation timing, captures LCP when available, and can call a shared hook for interaction scenarios. The asset tool reports raw, gzip and Brotli sizes per built JS/CSS file. These tools are infrastructure only; measured results should be added after equivalent applications exist.
+The shared application contract is documented in [`spec.md`](https://github.com/mimopo/croqueta/blob/main/benchmarks/framework-comparison/spec.md); the four implementations live in [`apps/`](https://github.com/mimopo/croqueta/tree/main/benchmarks/framework-comparison/apps). The Croqueta app aliases the local framework source so repository changes are used directly. All apps share the product fixture, utilities, styles, runner and static server. The harness measures browser resource transfers and navigation timing, captures LCP when available, and runs the same interaction scenarios. The asset tool reports raw, gzip and Brotli sizes per built JS/CSS file. Results should be recorded only after the apps are built with their committed lockfiles.
 
 ## Fair measurement rules
 

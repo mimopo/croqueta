@@ -24,7 +24,8 @@ if (!Number.isInteger(options.iterations) || options.iterations < 1) {
   process.exit(2);
 }
 
-const browser = await chromium.launch({ headless: true });
+const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
 const runs = [];
 try {
   for (let index = 0; index < options.iterations; index += 1) {
@@ -108,3 +109,12 @@ const output = resolve(options.output);
 await mkdir(dirname(output), { recursive: true });
 await writeFile(output, JSON.stringify(result, null, 2) + '\n');
 console.log('Wrote', output);
+const failedRun = runs.some((run) =>
+  (run.status !== null && (run.status < 200 || run.status >= 400)) ||
+  run.pageErrors.length > 0 ||
+  Object.values(run.scenarios).some((scenario) => !scenario.available || scenario.error),
+);
+if (failedRun) {
+  console.error('One or more page loads or benchmark scenarios failed; inspect the saved result JSON.');
+  process.exitCode = 1;
+}

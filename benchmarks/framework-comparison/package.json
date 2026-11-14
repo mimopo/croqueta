@@ -8,6 +8,6 @@
     "summarize": "node summarize.mjs"
   },
   "devDependencies": {
-    "playwright": "1.56.1"
+    "playwright": "1.65.1"
   }
 }

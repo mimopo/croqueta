@@ -1,44 +1,90 @@
 # Framework comparison benchmark
 
-This directory contains the first version of a common measurement harness for Croqueta, Vue, Angular and React. It does not include framework implementations or claim results yet. Follow [the shared catalog specification](./spec.md), and import [the deterministic product fixture](./products.mjs) in every app.
+Four small projects implement the same product catalog. Their dependencies and lockfiles stay inside their own folders; the repository's main package manifest, pnpm workspace and lockfile are not used to install app dependencies.
 
-## Requirements
+The [shared catalog specification](./spec.md) defines behavior and expected results. All apps use the same deterministic product generator, utilities, stylesheet, browser hook and static server.
+
+## Stacks under comparison
+
+| App | Framework and routing | Global favorites state | Build and language |
+|---|---|---|---|
+| Croqueta | Current repository source, via Vite alias; Croqueta Router | Croqueta Store from the repository source | Vite 8.3.8, TypeScript 6.0.3 |
+| Vue | Vue 3.5.45, Vue Router 5.5.1 | Pinia 4.1.0 | Vite 8.3.8, TypeScript 6.0.3 |
+| Angular | Angular 22.2.6, Angular Router | NgRx Store 22.0.1 | Angular CLI/build 22.2.7, TypeScript 6.0.3 |
+| React | React 19.3.1, React Router 8.5.1 | Redux Toolkit 2.14.0 + React Redux 9.3.1 | Vite 8.3.8, TypeScript 6.0.3 |
+
+Angular has built-in signals for reactive component state, but this benchmark uses NgRx Store for the **shared global** favorites state. NgRx is an external dependency and its bytes count toward the Angular stack. Croqueta resolves `@mimopo/croqueta` directly to `packages/framework/src/index.ts`; each build therefore uses the repository's current source without copying or publishing it. Its `signal-polyfill` runtime dependency is installed in the isolated app.
+
+Forms use native HTML and the same shared validation function in all four apps. This keeps form rules equal while comparing routers and global state solutions. No CSS/component library or network API is included.
+
+## Requirements and installation
 
 - Node.js 24 or newer.
 - npm.
-- Playwright Chromium.
+- Playwright Chromium for the browser runner.
 
-Install the isolated harness dependencies and browser:
+If Chromium is already installed on the machine, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable path instead of downloading Playwright's bundled browser.
+
+Install the runner's dependencies once:
 
 ```sh
 cd benchmarks/framework-comparison
-npm install
+npm ci
 npx playwright install chromium
 ```
 
-## Measure built assets
-
-From the repository root, pass one or more build output directories. Every JavaScript and CSS file is reported separately as raw, gzip and Brotli bytes:
+Install and build each app independently. Each folder has its own `package-lock.json`:
 
 ```sh
-node benchmarks/framework-comparison/measure-assets.mjs dist/croqueta dist/vue dist/angular dist/react
+cd apps/croqueta && npm ci && npm run build
+cd ../vue && npm ci && npm run build
+cd ../angular && npm ci && npm run build
+cd ../react && npm ci && npm run build
 ```
 
-The output is JSON on stdout. This is **all emitted JS/CSS**, not the initial route bundle. Use browser transfer measurements for initial and scenario downloads.
+Croqueta's Vite alias reads the live files under `packages/framework/src` every time it starts or builds. You do not need to publish Croqueta or copy its source to test repository changes. The app's own lockfile pins Vite, TypeScript and `signal-polyfill`; the repository lockfile is not modified.
 
-## Measure a running application
+## Run a production build
 
-Start each production app locally, then run from the repository root:
+Build each app using the command above, then start its static preview server from that app directory:
+
+```sh
+npm run preview
+```
+
+The shared server serves compressed Brotli/gzip assets, disables caching for repeatable cold loads, and falls back to `index.html` for client-side routes. Run one app at a time on `http://127.0.0.1:4173`.
+
+## Measure assets
+
+From the repository root, pass built output directories. Every JavaScript and CSS file is reported separately as raw, gzip and Brotli bytes:
+
+```sh
+node benchmarks/framework-comparison/measure-assets.mjs \
+  benchmarks/framework-comparison/apps/croqueta/dist \
+  benchmarks/framework-comparison/apps/vue/dist \
+  benchmarks/framework-comparison/apps/angular/dist/angular/browser \
+  benchmarks/framework-comparison/apps/react/dist
+```
+
+This reports **all emitted JS/CSS**, not only the initial route bundle. Use browser transfer measurements for initial and scenario downloads.
+
+## Measure browser behavior
+
+From the repository root with one app's preview server running:
 
 ```sh
 node benchmarks/framework-comparison/browser.mjs \
   --url http://127.0.0.1:4173 \
   --name croqueta \
   --iterations 10 \
+  --scenario search-10000 \
+  --scenario filter-1000 \
   --output benchmarks/framework-comparison/results/croqueta.json
 ```
 
-Add `--scenario search-1000` (repeat the option for more scenarios) to invoke the shared interaction hook. Summarize the run with:
+Run each scenario set for each app on the same machine and browser; do not run apps concurrently. The runner records navigation timing, LCP when available, actual compressed resource transfers, optional interaction results and page errors.
+
+Summarize a run with median and p75:
 
 ```sh
 node benchmarks/framework-comparison/summarize.mjs \
@@ -46,35 +92,8 @@ node benchmarks/framework-comparison/summarize.mjs \
   benchmarks/framework-comparison/results/croqueta-summary.json
 ```
 
-Repeat for each stack on the same machine and browser; do not run stacks concurrently. The runner records navigation timing, LCP (when emitted), browser resource transfer sizes and optional interaction scenarios.
+## Shared hook and scenarios
 
-## Shared hook contract
+Each application imports the common browser hook, exposes `window.__frameworkComparison.ready()` and implements `runScenario(name)`. The hook prepares the named dataset, resets state and performs the same user interaction through the UI. It measures from immediately before the action until the expected DOM result is present. It throws if an assertion fails; the runner writes the raw JSON and exits non-zero when a requested scenario fails, a page errors, or a response is unsuccessful.
 
-Each implementation may expose this before the page is considered ready:
-
-```js
-window.__frameworkComparison = {
-  async ready() {},
-  async runScenario(name) {
-    // Implement a documented scenario, assert the expected result, and use performance.now().
-    // Return { durationMs }; setup and assertion time should not be included.
-    return { durationMs: 12.3 };
-  }
-};
-```
-
-The runner calls `ready()`, then invokes `runScenario` for each `--scenario <name>`. Missing hooks are recorded as unavailable and do not fail page-load measurement.
-
-## Scenarios to implement
-
-1. `search-100`, `search-1000`, `search-10000`: search by a fixed query and wait until matching rows render.
-2. `filter-1000`: apply a category filter.
-3. `sort-1000`: sort by a fixed field.
-4. `paginate-1000`: move to the next page.
-5. `form-validation`: submit an invalid form and confirm the same feedback.
-
-Each scenario resets state before timing, starts timing immediately before the action and ends after the expected DOM result is visible. Use identical records and markup density.
-
-## Results
-
-Keep raw result files with the comparison documentation. Include framework and tool versions, app commit, browser version, machine, dataset, build mode, cache policy and run date. Report median and p75 across independent runs. Browser transfer size is network transfer when the server exposes it; the asset tool gives reproducible compressed file sizes. Do not compare one stack's full chunk output to another stack's initial route download.
+Scenario names and expected values are listed in [spec.md](./spec.md): search at 100/1,000/10,000 records, filter, sort, paginate, favorites navigation and invalid/valid form submission. Keep the raw JSON results with the comparison record. Include exact versions, app commit, browser and Node versions, OS/CPU, production build, cache/network policy, dataset and run date.

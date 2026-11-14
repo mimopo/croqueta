@@ -2,6 +2,19 @@
 
 This is the behavioral contract for the Croqueta, Vue, Angular and React benchmark implementations. All four apps must use the same dataset generator, content, styles, routes, page size, and interaction checks.
 
+## Selected app stacks
+
+These are full application stacks; framework core and selected ecosystem packages must be reported separately in the feature matrix.
+
+| App | Framework and router | Global state | Build/runtime |
+|---|---|---|---|
+| Croqueta | Current `packages/framework/src` from this repository; built-in Croqueta Router | Built-in Croqueta Store | Vite 8.3.8, TypeScript 6.0.3, `signal-polyfill` 0.2.2 |
+| Vue | Vue 3.5.45 + Vue Router 5.5.1 | Pinia 4.1.0 | Vite 8.3.8, TypeScript 6.0.3 |
+| Angular | Angular 22.2.6 + Angular Router | NgRx Store 22.0.1 | Angular CLI/build 22.2.7, TypeScript 6.0.3 |
+| React | React 19.3.1 + React Router 8.5.1 | Redux Toolkit 2.14.0 + React Redux 9.3.1 | Vite 8.3.8, TypeScript 6.0.3 |
+
+Croqueta is resolved by Vite alias directly to the current repository source, not to a published package version or copied snapshot. Every app keeps its own npm manifest and lockfile outside the root pnpm workspace. Angular signals remain available for component-local reactivity; NgRx Store is used for the benchmark's cross-route global favorites state. Forms use the same native HTML controls and shared custom validation in all apps so a form library does not introduce another stack difference.
+
 ## App: Product catalog
 
 A small storefront shell with four routes:
@@ -22,9 +35,9 @@ Use `products.mjs` in this directory as the one source of deterministic data for
 | `id` | string | `product-00001` through `product-10000` |
 | `name` | string | `Product 00001` etc. |
 | `category` | string | One of `category-1` through `category-8`, cycling by ID |
-| `priceCents` | integer | Deterministic range from 100 to 50,000 |
-| `stock` | integer | Deterministic range from 0 to 100 |
-| `ratingTenths` | integer | Rating from 0.1 to 5.0, in tenths |
+| `priceCents` | integer | `((idNumber * 7919) % 49901) + 100` |
+| `stock` | integer | `(idNumber * 37) % 101` |
+| `ratingTenths` | integer | `((idNumber * 13) % 50) + 1` |
 
 Do not use Math.random() or framework-specific mock-data packages. Test the app with 100, 1,000 and 10,000 records.
 
