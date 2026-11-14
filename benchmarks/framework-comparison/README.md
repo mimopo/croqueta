@@ -1,6 +1,6 @@
 # Framework comparison benchmark
 
-This directory contains the first version of a common measurement harness for Croqueta, Vue, Angular and React. It does not include framework implementations or claim results yet.
+This directory contains the first version of a common measurement harness for Croqueta, Vue, Angular and React. It does not include framework implementations or claim results yet. Follow [the shared catalog specification](./spec.md), and import [the deterministic product fixture](./products.mjs) in every app.
 
 ## Requirements
 
@@ -56,7 +56,8 @@ Each implementation may expose this before the page is considered ready:
 window.__frameworkComparison = {
   async ready() {},
   async runScenario(name) {
-    // Perform the same deterministic interaction and return duration in ms.
+    // Implement a documented scenario, assert the expected result, and use performance.now().
+    // Return { durationMs }; setup and assertion time should not be included.
     return { durationMs: 12.3 };
   }
 };
