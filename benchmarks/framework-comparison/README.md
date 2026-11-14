@@ -38,6 +38,14 @@ node benchmarks/framework-comparison/browser.mjs \
   --output benchmarks/framework-comparison/results/croqueta.json
 ```
 
+Add `--scenario search-1000` (repeat the option for more scenarios) to invoke the shared interaction hook. Summarize the run with:
+
+```sh
+node benchmarks/framework-comparison/summarize.mjs \
+  benchmarks/framework-comparison/results/croqueta.json \
+  benchmarks/framework-comparison/results/croqueta-summary.json
+```
+
 Repeat for each stack on the same machine and browser; do not run stacks concurrently. The runner records navigation timing, LCP (when emitted), browser resource transfer sizes and optional interaction scenarios.
 
 ## Shared hook contract
