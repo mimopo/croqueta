@@ -36,7 +36,7 @@ Build the same small product catalog for each stack, with identical behavior, vi
 - Deterministic local datasets of 100, 1,000 and 10,000 records.
 - The same browser, viewport and production build conditions.
 
-The companion harness will live in [`benchmarks/framework-comparison`](https://github.com/mimopo/croqueta/tree/main/benchmarks/framework-comparison). It measures browser resource transfers and navigation timing, captures LCP when available, and can call a shared hook for interaction scenarios. The asset tool reports raw, gzip and Brotli sizes per built JS/CSS file. These tools are infrastructure only; results should be added after equivalent applications exist.
+The shared application contract is documented in [`spec.md`](https://github.com/mimopo/croqueta/blob/main/benchmarks/framework-comparison/spec.md); all four implementations should use the same product fixture from [`products.mjs`](https://github.com/mimopo/croqueta/blob/main/benchmarks/framework-comparison/products.mjs). The companion harness in [`benchmarks/framework-comparison`](https://github.com/mimopo/croqueta/tree/main/benchmarks/framework-comparison) measures browser resource transfers and navigation timing, captures LCP when available, and can call a shared hook for interaction scenarios. The asset tool reports raw, gzip and Brotli sizes per built JS/CSS file. These tools are infrastructure only; measured results should be added after equivalent applications exist.
 
 ## Fair measurement rules
 
