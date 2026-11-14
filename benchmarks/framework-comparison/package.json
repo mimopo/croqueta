@@ -1,0 +1,13 @@
+{
+  "name": "@mimopo/croqueta-framework-comparison",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "measure:assets": "node measure-assets.mjs",
+    "measure:browser": "node browser.mjs",
+    "summarize": "node summarize.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65.1"
+  }
+}
