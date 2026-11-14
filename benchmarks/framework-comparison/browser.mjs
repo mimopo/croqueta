@@ -52,8 +52,8 @@ try {
     const navigation = await page.evaluate(() => {
       const nav = performance.getEntriesByType('navigation')[0];
       const resources = performance.getEntriesByType('resource');
-      const scripts = resources.filter((item) => /\\.m?js(?:\\?|$)/i.test(item.name));
-      const styles = resources.filter((item) => /\\.css(?:\\?|$)/i.test(item.name));
+      const scripts = resources.filter((item) => /\.m?js(?:\?|$)/i.test(item.name));
+      const styles = resources.filter((item) => /\.css(?:\?|$)/i.test(item.name));
       return {
         domContentLoadedMs: nav?.domContentLoadedEventEnd ?? null,
         loadMs: nav?.loadEventEnd ?? null,
@@ -100,11 +100,11 @@ const result = {
   name: options.name,
   url: options.url,
   capturedAt: new Date().toISOString(),
-  browser: 'Playwright Chromium',
+  browser: { name: 'Chromium', version: browser.version() },
   viewport: { width: 1365, height: 768 },
   iterations: runs,
 };
 const output = resolve(options.output);
 await mkdir(dirname(output), { recursive: true });
-await writeFile(output, JSON.stringify(result, null, 2) + '\\n');
+await writeFile(output, JSON.stringify(result, null, 2) + '\n');
 console.log('Wrote', output);
