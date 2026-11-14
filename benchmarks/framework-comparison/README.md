@@ -5,18 +5,20 @@ This directory contains the first version of a common measurement harness for Cr
 ## Requirements
 
 - Node.js 24 or newer.
-- pnpm.
-- Playwright Chromium (`pnpm exec playwright install chromium`).
+- npm.
+- Playwright Chromium.
 
-Install the isolated harness dependencies:
+Install the isolated harness dependencies and browser:
 
 ```sh
-pnpm --dir benchmarks/framework-comparison install
+cd benchmarks/framework-comparison
+npm install
+npx playwright install chromium
 ```
 
 ## Measure built assets
 
-Pass one or more build output directories. Every JavaScript and CSS file is reported separately as raw, gzip and Brotli bytes:
+From the repository root, pass one or more build output directories. Every JavaScript and CSS file is reported separately as raw, gzip and Brotli bytes:
 
 ```sh
 node benchmarks/framework-comparison/measure-assets.mjs dist/croqueta dist/vue dist/angular dist/react
@@ -26,14 +28,14 @@ The output is JSON on stdout. This is **all emitted JS/CSS**, not the initial ro
 
 ## Measure a running application
 
-Start each production app locally, then run:
+Start each production app locally, then run from the repository root:
 
 ```sh
-pnpm --dir benchmarks/framework-comparison exec node ../../benchmarks/framework-comparison/browser.mjs \
+node benchmarks/framework-comparison/browser.mjs \
   --url http://127.0.0.1:4173 \
   --name croqueta \
   --iterations 10 \
-  --output results/croqueta.json
+  --output benchmarks/framework-comparison/results/croqueta.json
 ```
 
 Repeat for each stack on the same machine and browser; do not run stacks concurrently. The runner records navigation timing, LCP (when emitted), browser resource transfer sizes and optional interaction scenarios.
