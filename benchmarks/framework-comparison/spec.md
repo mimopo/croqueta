@@ -61,7 +61,7 @@ Use the same scenario names, initial state and expected assertions in all four a
 | `search-100` | 100 | Search for `00042` | Exactly product-00042 is visible |
 | `search-1000` | 1,000 | Search for `00042` | Exactly product-00042 is visible |
 | `search-10000` | 10,000 | Search for `00042` | Exactly product-00042 is visible |
-| `filter-1000` | 1,000 | Choose category-3 | Only category-3 items remain; count matches fixture |
+| `filter-1000` | 1,000 | Choose category-3 | Only category-3 items remain; exactly 125 records match |
 | `sort-1000` | 1,000 | Sort price ascending | First page is ordered by price then product ID |
 | `paginate-1000` | 1,000 | Go to next page | Page indicator becomes 2 and visible IDs change |
 | `favorites` | 100 | Favorite first item, open Favorites | Item appears and count is 1 |
